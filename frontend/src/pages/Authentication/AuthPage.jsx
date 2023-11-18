@@ -12,7 +12,7 @@ export const AuthPage = (props) => {
     <section className="section-auth">
       <div className="auth-container">
         <div className="auth-heading">
-          <h1>Welcome to ClubHouse</h1>
+          <h1>Welcome to Club Management</h1>
           <p>Sign in to get started</p>
         </div>
 

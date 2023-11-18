@@ -83,16 +83,16 @@ body {
 }
 
 .auth-container {
-  width: 74rem;
+  width: 96rem;
   /* background-color: teal; */
   margin-left: auto;
   margin-right: auto;
   padding-top: 9.6rem;
   display: grid;
-  grid-template-columns: 4fr 6fr;
+  grid-template-columns: 1fr 40rem;
   align-items: center;
   gap: 4.8rem;
-  min-height: 78rem;
+  min-height: 77.1rem;
 }
 
 .auth-heading {
@@ -101,23 +101,21 @@ body {
 }
 
 .auth-heading h1 {
-  font-size: 4.8rem;
+  font-size: 7.4rem;
   margin-bottom: 1.2rem;
   font-weight: 600;
   color: var(---primary--color-2);
 }
 
 .auth-heading p {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 500;
   color: var(---primary--color-2);
 }
 
 .auth {
   background-color: var(--shade-1);
-  width: 40rem;
-  margin-left: auto;
-  margin-right: auto;
+
   padding: 2.4rem;
   box-shadow: 7px 0 29px 0px rgba(100, 100, 111, 0.2);
   border-radius: 11px;
@@ -381,6 +379,7 @@ nav {
   font-family: "Inter", "sans-serif";
   color: #222;
   margin-top: 4.8rem;
+  margin-bottom: 4.8rem;
 }
 
 /* events */

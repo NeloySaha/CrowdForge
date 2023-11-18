@@ -64,10 +64,12 @@ export const DetailsSection = ({ loggedUser }) => {
           <p className="detail-val">{club}</p>
         </li>
 
-        <li>
-          <p className="category">Current Rating:</p>
-          <p className="detail-val">{rating}/10</p>
-        </li>
+        {designation === "general" && (
+          <li>
+            <p className="category">Current Rating:</p>
+            <p className="detail-val">{rating}/10</p>
+          </li>
+        )}
       </ul>
     </section>
   );

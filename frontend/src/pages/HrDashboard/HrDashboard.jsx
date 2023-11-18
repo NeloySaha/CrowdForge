@@ -1,5 +1,10 @@
 import React from "react";
+import { HrDashContainer } from "./components/HrDashContainer";
 
 export const HrDashboard = (props) => {
-  return <div>HrDashboard</div>;
+  return (
+    <div>
+      <HrDashContainer {...props} />
+    </div>
+  );
 };
