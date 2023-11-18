@@ -8,6 +8,7 @@ export const EventsContainer = (props) => {
   const [upEventData, setUpEventData] = useState([]);
   const [parEventData, setParEventData] = useState([]);
   const [volunEventData, setVolunEventData] = useState([]);
+  const [curTab, setCurTab] = useState("upcoming");
   const { email } = props.loggedUser;
 
   const getUpcomingEventsData = async () => {
@@ -50,25 +51,31 @@ export const EventsContainer = (props) => {
     const newProps = {
       ...props,
       ...event,
+      getUpcomingEventsData,
+      getParEventsData,
+      getVolunEventsData,
     };
     return event.restriction === 1 &&
       event.club_name !== props.loggedUser.club ? (
-      <div></div>
+      ""
     ) : (
       <EventCard key={idx} {...newProps} />
     );
   });
 
-  const parEventCards = parEventData.map((event, idx) => {
+  const parEventCards = parEventData?.map((event, idx) => {
     const newProps = {
       ...props,
       ...event,
+      getUpcomingEventsData,
+      getParEventsData,
+      getVolunEventsData,
     };
 
     return <ParticipatingEventCard key={idx} {...newProps} />;
   });
 
-  const volunEventCards = volunEventData.map((event, idx) => {
+  const volunEventCards = volunEventData?.map((event, idx) => {
     const newProps = {
       ...props,
       ...event,
@@ -82,30 +89,72 @@ export const EventsContainer = (props) => {
   }, [upEventData]);
 
   useEffect(() => {
+    console.log("par event r daya");
+    console.log(parEventData);
+  }, [parEventData]);
+
+  useEffect(() => {
     getUpcomingEventsData();
     getParEventsData();
     getVolunEventsData();
   }, []);
 
+  const currentStyle = (cond) => ({
+    borderBottom: cond ? "3px solid #1a76f5" : "",
+  });
+
   return (
-    <div className="event-section">
-      <div className="events-container">
-        <h1 className="detail-section-heading">Upcoming Events</h1>
+    <section className="event-section">
+      <ul className="auth-nav">
+        <li>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("upcoming")}
+            style={currentStyle(curTab === "upcoming")}
+          >
+            Upcoming Events
+          </button>
+        </li>
+        <li>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("participate")}
+            style={currentStyle(curTab === "participate")}
+          >
+            Participating Events
+          </button>
+        </li>
+        <li>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("volunteer")}
+            style={currentStyle(curTab === "volunteer")}
+          >
+            Volunteering Events
+          </button>
+        </li>
+      </ul>
 
-        {upcomingEventCards}
-      </div>
+      {curTab === "upcoming" && (
+        <div className="events-container">
+          <h1 className="section-heading">Upcoming Events</h1>
+          <div className="events">{upcomingEventCards}</div>
+        </div>
+      )}
 
-      <div className="events-container">
-        <h1 className="detail-section-heading">Participating Events</h1>
+      {curTab === "participate" && (
+        <div className="events-container">
+          <h1 className="section-heading">Participating Events</h1>
+          <div className="events">{parEventCards}</div>
+        </div>
+      )}
 
-        {parEventCards}
-      </div>
-
-      <div className="events-container">
-        <h1 className="detail-section-heading">Volunteering Events</h1>
-
-        {volunEventCards}
-      </div>
-    </div>
+      {curTab === "volunteer" && (
+        <div className="events-container">
+          <h1 className="section-heading">Volunteering Events</h1>
+          <div className="events">{volunEventCards}</div>
+        </div>
+      )}
+    </section>
   );
 };

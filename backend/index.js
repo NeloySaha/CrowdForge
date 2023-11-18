@@ -112,10 +112,9 @@ app.get("/upcomingEvents/:email", (req, res) => {
 
 app.get("/participatingEvents/:email", (req, res) => {
   const { email } = req.params;
-  const sql =
-    "SELECT e.* FROM participate p LEFT JOIN event e ON e.event_id=p.event_id WHERE p.email=?";
+  const sql = `SELECT e.*, CASE WHEN v.event_id IS NOT NULL THEN TRUE ELSE FALSE END AS volun FROM participate p LEFT JOIN event e ON e.event_id = p.event_id LEFT JOIN volunteer v ON e.event_id = v.event_id AND v.email = ? WHERE p.email = ?`;
 
-  db.query(sql, [email], (err, data) => {
+  db.query(sql, [email, email], (err, data) => {
     if (err) return res.json(err);
 
     return res.json(data);

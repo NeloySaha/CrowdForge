@@ -300,7 +300,8 @@ body {
 /* ****** */
 
 nav {
-  background-image: linear-gradient(to Right, #6ea6c0, #89cff0);
+  /* background-image: linear-gradient(to Right, #6ea6c0, #89cff0); */
+  background-color: #007aff;
   height: 7.6rem;
   display: flex;
   justify-content: space-between;
@@ -321,27 +322,32 @@ nav {
   border: none;
   font-family: inherit;
   font-weight: 600;
-  background-color: #1a5ab3;
-  color: #e6edf7;
+  background-color: #66afff;
+  color: #fff;
   transition: all 0.3s;
   cursor: pointer;
 }
 
 .logout-btn:hover {
-  background-color: #003a89;
+  background-color: #0055b3;
   transform: translateY(-0.2rem);
 }
 
 /* Details Section */
 
 .detail-container {
-  padding: 4.8rem 3.2rem;
-  background-color: teal;
+  padding: 2.4rem 3.2rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 0 2.4rem 2.4rem 2.4rem;
+  border-radius: 11px;
+  align-self: start;
 }
 
-.detail-section-heading {
+.section-heading {
   font-size: 2.4rem;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
   margin-bottom: 2.4rem;
 }
 
@@ -369,42 +375,176 @@ nav {
 /* Member Dashboard */
 .mem-dashboard-container {
   display: grid;
-  grid-template-columns: 0.3fr 0.4fr 0.3fr;
+  grid-template-columns: 0.25fr 0.4fr 0.35fr;
+
+  min-height: 100vh;
+  font-family: "Inter", "sans-serif";
+  color: #222;
+  margin-top: 4.8rem;
 }
 
 /* events */
 
-.events-container {
-  background-color: yellow;
+.event-section {
+  padding: 0 2.4rem 2.4rem 2.4rem;
+  border-right: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
 }
 
 .event-box {
-  margin: 1.6rem;
+  padding: 2.4rem;
   border-radius: 11px;
-  font-size: 1.6rem;
-  border: 2px solid black;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.event-title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.event-head-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.6rem;
+}
+
+.event-host {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.event-host span {
+  font-weight: 700;
 }
 
 .event-category-list {
   list-style: none;
+  display: flex;
+  gap: 1.4rem;
 }
 
 .event-category-list li {
   display: flex;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+  align-items: center;
+  margin-bottom: 2.4rem;
+}
+
+.event-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.eventbtn {
+  border: none;
+  padding: 1.2rem 2.4rem;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.75px;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: rgba(100, 100, 111, 0.15) 0px 7px 29px 0px;
+}
+
+.parbtn {
+  background-color: #eb3656;
+}
+
+.parbtn:hover {
+  background-color: #ef5e78;
+}
+
+.volbtn {
+  background-color: #11c1f4;
+}
+
+.volbtn:hover {
+  background-color: #5c9ee6;
+}
+
+.eventbtn:hover {
+  transform: translateY(-0.2rem);
 }
 
 /* Other Clubs */
 
 .other-club-container {
-  background-color: #003a89;
+  padding: 0 2.4rem 2.4rem 2.4rem;
 }
 
 .other-club-section {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 2.4rem;
 }
 
 .club-box {
-  border: 1px solid black;
+  box-shadow: rgba(100, 100, 111, 0.15) 0px 7px 29px 0px;
+  border-radius: 11px;
+  padding: 2rem;
+}
+
+.club-name {
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  line-height: 1.6rem;
+  margin-bottom: 1.6rem;
+  color: #111;
+}
+
+.club-name span {
+  font-weight: 700;
+}
+
+.club-details {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+  line-height: 1.6rem;
+  margin-bottom: 1.8rem;
+}
+
+.club-box-mini-cont {
+  display: flex;
+  justify-content: space-between;
+}
+
+.club-category {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.other-club-bottom {
+  margin-top: 4.8rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.join-other-btn {
+  background-color: #007aff;
+}
+
+.join-other-btn:hover {
+  background-color: #66afff;
 }

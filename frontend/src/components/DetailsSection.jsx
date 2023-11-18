@@ -10,6 +10,7 @@ export const DetailsSection = ({ loggedUser }) => {
     dob,
     email,
     department,
+    rating,
   } = loggedUser;
 
   const formattedDate = new Date(dob).toLocaleString("en-US", {
@@ -19,8 +20,8 @@ export const DetailsSection = ({ loggedUser }) => {
   });
 
   return (
-    <div className="detail-container">
-      <h2 className="detail-section-heading">Personal Information</h2>
+    <section className="detail-container">
+      <h2 className="section-heading">Personal Information</h2>
 
       <ul className="info-container">
         <li>
@@ -62,7 +63,12 @@ export const DetailsSection = ({ loggedUser }) => {
           <p className="category">Club:</p>
           <p className="detail-val">{club}</p>
         </li>
+
+        <li>
+          <p className="category">Current Rating:</p>
+          <p className="detail-val">{rating}/10</p>
+        </li>
       </ul>
-    </div>
+    </section>
   );
 };
