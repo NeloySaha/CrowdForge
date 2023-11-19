@@ -68,6 +68,8 @@ function App() {
     setCurPage,
   };
 
+  console.log("Branch e uthe naki test kortesi");
+
   return (
     <>
       <ToastContainer />
