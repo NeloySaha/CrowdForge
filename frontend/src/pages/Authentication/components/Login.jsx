@@ -3,12 +3,7 @@ import axios from "axios";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-export const Login = ({
-  setLoggedUser,
-  failedToast,
-  successToast,
-  setCurPage,
-}) => {
+export const Login = ({ setLoggedUser, failedToast, successToast }) => {
   const [showPass, setShowPass] = useState(false);
   const [clubDataHtml, setClubDataHtml] = useState([]);
   const [loginDisabled, setLoginDisabled] = useState(true);
@@ -70,10 +65,8 @@ export const Login = ({
 
       if (res.data[0].designation === "general") {
         navigate("/genDashboard");
-        setCurPage("general");
       } else if (res.data[0].designation === "hr") {
         navigate("/humanResource");
-        setCurPage("hr");
       }
 
       successToast(`🎉Welcome, ${res.data[0].name}!`);
@@ -96,7 +89,6 @@ export const Login = ({
       className="auth-form"
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(`loginInfo from form:${loginInfo}`);
         handleLogin();
       }}
     >

@@ -49,7 +49,6 @@ export const ParticipatingEventCard = ({
     }
   };
 
-  console.log(name, volun);
   return (
     <div className="event-box">
       <div className="event-head-container">

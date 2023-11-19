@@ -96,7 +96,6 @@ export const Registration = ({ failedToast, successToast }) => {
       );
 
       if (res.status === 200) {
-        console.log(res.data);
         successToast(res.data, 6000);
       }
     } catch (err) {
@@ -125,7 +124,6 @@ export const Registration = ({ failedToast, successToast }) => {
       className="auth-form"
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(regInfo);
         handleSignUp();
       }}
     >

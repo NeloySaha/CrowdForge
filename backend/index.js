@@ -133,7 +133,7 @@ app.get("/volunteerEvents/:email", (req, res) => {
   });
 });
 
-app.get("/events/:club", (req, res) => {
+app.get("/otherClubDetails/:club", (req, res) => {
   const { club } = req.params;
   const sql = `SELECT * FROM club where name !=?`;
 
@@ -169,5 +169,5 @@ app.post("/volunteer", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Listening on 7000!");
+  console.log("Listening on 7001!");
 });

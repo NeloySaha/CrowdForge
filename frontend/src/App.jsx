@@ -12,9 +12,6 @@ import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
 import { Navbar } from "./components/Navbar";
 
 function App() {
-  const [curPage, setCurPage] = useState(
-    JSON.parse(localStorage.getItem("curPage")) || ""
-  );
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
   );
@@ -36,10 +33,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(loggedUser));
   }, [loggedUser]);
-
-  useEffect(() => {
-    localStorage.setItem("curPage", JSON.stringify(curPage));
-  }, [curPage]);
 
   const failedToast = (msg, time = 3000) => {
     toast.error(msg, {
@@ -64,14 +57,12 @@ function App() {
     setLoggedUser,
     failedToast,
     successToast,
-    curPage,
-    setCurPage,
   };
 
   return (
     <>
       <ToastContainer />
-      {curPage !== "" && <Navbar {...props} />}
+      <Navbar {...props} />
       <Routes>
         <Route path="/" element={<AuthPage {...props} />} />
         <Route

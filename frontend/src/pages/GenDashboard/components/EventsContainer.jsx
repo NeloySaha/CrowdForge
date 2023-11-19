@@ -85,15 +85,6 @@ export const EventsContainer = (props) => {
   });
 
   useEffect(() => {
-    console.log(upEventData);
-  }, [upEventData]);
-
-  useEffect(() => {
-    console.log("par event r daya");
-    console.log(parEventData);
-  }, [parEventData]);
-
-  useEffect(() => {
     getUpcomingEventsData();
     getParEventsData();
     getVolunEventsData();

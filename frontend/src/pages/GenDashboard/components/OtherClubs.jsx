@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
+import { useNavigate } from "react-router-dom";
 
-export const OtherClubs = ({ loggedUser, setCurPage, setLoggedUser }) => {
+export const OtherClubs = ({ loggedUser, setLoggedUser }) => {
   const { club } = loggedUser;
   const [otherClubs, setOtherClubs] = useState([]);
+  const navigate = useNavigate();
 
   const getOtherClubData = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/events/${club}`
+        `${import.meta.env.VITE_API_URL}/otherClubDetails/${club}`
       );
 
       setOtherClubs(res.data);
@@ -54,10 +56,6 @@ export const OtherClubs = ({ loggedUser, setCurPage, setLoggedUser }) => {
     getOtherClubData();
   }, []);
 
-  useEffect(() => {
-    console.log(otherClubs);
-  }, [otherClubs]);
-
   return (
     <div className="other-club-container">
       <h1 className="section-heading">Find Other Clubs,</h1>
@@ -66,8 +64,7 @@ export const OtherClubs = ({ loggedUser, setCurPage, setLoggedUser }) => {
         <button
           className="join-other-btn eventbtn"
           onClick={() => {
-            setLoggedUser({});
-            setCurPage("");
+            navigate("/");
           }}
         >
           Join Other Clubs&rarr;

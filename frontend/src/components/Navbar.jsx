@@ -1,16 +1,21 @@
-import React from "react";
+import { useLocation } from "react-router-dom";
 
-export const Navbar = ({ setLoggedUser, setCurPage, curPage }) => {
+export const Navbar = ({ setLoggedUser }) => {
   let userType;
+  const location = useLocation();
 
-  if (curPage === "general") {
+  if (location.pathname === "/genDashboard") {
     userType = "Member";
-  } else if (curPage === "hr") {
+  } else if (location.pathname === "/humanResource") {
     userType = "HR";
   }
 
   return (
-    <nav>
+    <nav
+      style={{
+        display: location.pathname === "/" ? "none" : "",
+      }}
+    >
       <div>
         <h1 className="nav-heading">{userType} Dashboard</h1>
       </div>
@@ -19,7 +24,6 @@ export const Navbar = ({ setLoggedUser, setCurPage, curPage }) => {
         className="logout-btn"
         onClick={() => {
           setLoggedUser({});
-          setCurPage("");
         }}
       >
         Log Out
