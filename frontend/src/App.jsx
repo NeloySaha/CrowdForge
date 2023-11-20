@@ -10,8 +10,14 @@ import { AuthPage } from "./pages/Authentication/AuthPage";
 import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
 import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
 import { Navbar } from "./components/Navbar";
+
+// niaz er eita 4th commit
+// Neloy ekhon kisu update dise
+//eibar finall update ditesi niaz e
+=======
 // niaz er eita 3rd commit
 // Neloy paknami korse
+
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
@@ -30,6 +36,8 @@ function App() {
     letterSpacing: "0.75px",
     color: "#1a1d2c",
   };
+
+  // Ami aro kisu lagaisi
 
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(loggedUser));
@@ -59,6 +67,8 @@ function App() {
     failedToast,
     successToast,
   };
+
+  console.log("Branch e uthe naki test kortesi");
 
   return (
     <>
@@ -97,3 +107,4 @@ function App() {
 }
 
 export default App;
+//icchamoto habijabi
