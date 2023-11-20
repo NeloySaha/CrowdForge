@@ -11,6 +11,8 @@ import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
 import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
 import { Navbar } from "./components/Navbar";
 // niaz er eita 4th commit
+// Neloy ekhon kisu update dise
+//eibar finall update ditesi niaz e
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
