@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const env = require("dotenv").config();
-
+// jon banega don
 const app = express();
 app.use(cors());
 app.use(express.json());
