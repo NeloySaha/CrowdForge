@@ -10,7 +10,7 @@ import { AuthPage } from "./pages/Authentication/AuthPage";
 import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
 import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
 import { Navbar } from "./components/Navbar";
-// niaz was here
+// niaz er eita 2nd commit
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
