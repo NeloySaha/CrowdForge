@@ -59,6 +59,8 @@ function App() {
     successToast,
   };
 
+  console.log("Branch e uthe naki test kortesi");
+
   return (
     <>
       <ToastContainer />
