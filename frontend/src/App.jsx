@@ -32,6 +32,8 @@ function App() {
     color: "#1a1d2c",
   };
 
+  // Ami aro kisu lagaisi
+
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(loggedUser));
   }, [loggedUser]);
