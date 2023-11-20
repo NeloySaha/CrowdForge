@@ -14,7 +14,6 @@ import { Navbar } from "./components/Navbar";
 // niaz er eita 4th commit
 // Neloy ekhon kisu update dise
 //eibar finall update ditesi niaz e
-=======
 // niaz er eita 3rd commit
 // Neloy paknami korse
 
