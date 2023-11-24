@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const env = require("dotenv").config();
-// jon banega don
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -94,7 +94,7 @@ app.post("/register", (req, res) => {
     }
   );
 });
-
+//member upcoming event
 app.get("/upcomingEvents/:email", (req, res) => {
   const { email } = req.params;
   const sql = `SELECT e.*
@@ -109,7 +109,7 @@ app.get("/upcomingEvents/:email", (req, res) => {
     return res.json(data);
   });
 });
-
+//member participating event button
 app.get("/participatingEvents/:email", (req, res) => {
   const { email } = req.params;
   const sql = `SELECT e.*, CASE WHEN v.event_id IS NOT NULL THEN TRUE ELSE FALSE END AS volun FROM participate p LEFT JOIN event e ON e.event_id = p.event_id LEFT JOIN volunteer v ON e.event_id = v.event_id AND v.email = ? WHERE p.email = ?`;
@@ -120,7 +120,7 @@ app.get("/participatingEvents/:email", (req, res) => {
     return res.json(data);
   });
 });
-
+//member volunteering event button
 app.get("/volunteerEvents/:email", (req, res) => {
   const { email } = req.params;
   const sql =
@@ -132,7 +132,7 @@ app.get("/volunteerEvents/:email", (req, res) => {
     return res.json(data);
   });
 });
-
+//other clubs
 app.get("/otherClubDetails/:club", (req, res) => {
   const { club } = req.params;
   const sql = `SELECT * FROM club where name !=?`;
@@ -143,7 +143,7 @@ app.get("/otherClubDetails/:club", (req, res) => {
     return res.json(data);
   });
 });
-
+//participating
 app.post("/participate", (req, res) => {
   const { event_id, club, email } = req.body;
 
@@ -155,7 +155,7 @@ app.post("/participate", (req, res) => {
     return res.send("🎉Participation Confirmed");
   });
 });
-
+//volunteering
 app.post("/volunteer", (req, res) => {
   const { event_id, club, email } = req.body;
 
@@ -165,6 +165,183 @@ app.post("/volunteer", (req, res) => {
     if (err) return res.send("Sorry! Please try again");
 
     return res.send("🎉Volunteering Confirmed");
+  });
+});
+
+app.listen(process.env.PORT, () => {
+  console.log("Listening on 7001!");
+});
+
+//edit profile
+
+app.post("/editProfile", (req, res) => {
+  const { name, gender, department, contact_no, password, dob, email, club } =
+    req.body;
+  const sql =
+    "UPDATE member SET name = ?, gender=?, department=?,dob=?,contact_no=?,password=? WHERE email = ? AND club = ?";
+
+  db.query(
+    sql,
+    [name, gender, department, dob, contact_no, password, email, club],
+    (err, data) => {
+      if (err) return res.send("Sorry! Couldn't Update your Information");
+
+      return res.send("Your information updated successfully🎉");
+    }
+  );
+});
+
+//president announcements panel
+
+app.get("/announcement/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "SELECT announcement FROM club WHERE name=?";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
+/////////////////
+///// HR PAGE //////
+////////////////
+
+//member incoming requests
+
+app.get("/pendingReq/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "Select * from incoming_request where club=?";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+//HR accept request
+
+app.post("/hrMemInsert", (req, res) => {
+  const {
+    name,
+    email,
+    dob,
+    department,
+    gender,
+    club,
+    password,
+    contact_no,
+    evaluation,
+  } = req.body;
+
+  const sql1 =
+    "INSERT into member (name,designation,email,dob,department,gender,club,password,contact_no,rating,evaluation) Values (?,'general',?,?,?,?,?,?,?,0,?)";
+
+  const sql2 = "DELETE FROM incoming_request WHERE email = ? and club = ?";
+
+  db.query(
+    sql1,
+    [
+      name,
+      email,
+      dob,
+      department,
+      gender,
+      club,
+      password,
+      contact_no,
+      evaluation,
+    ],
+    (err1, data1) => {
+      if (err1) {
+        return res.send("Couldn't insert");
+      }
+
+      db.query(sql2, [email, club], (err2, data2) => {
+        if (err2) return res.send("Couldn't remove the pending request");
+
+        return res.send("🎉Member now Approved");
+      });
+    }
+  );
+});
+
+//HR reject request
+app.post("/hrRejectReq", (req, res) => {
+  const { email, club } = req.body;
+  const sql = "DELETE FROM incoming_request WHERE email = ? and club = ?";
+
+  db.query(sql, [email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't remove the request");
+
+    return res.send("Request removed.");
+  });
+});
+
+//HR monitoring
+
+app.get("/hrMonitor/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "SELECT * FROM member WHERE club=? AND designation='general'";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+//Update member rating
+
+app.post("/updateRating", (req, res) => {
+  const { email, club, newRating } = req.body;
+  const sql = "UPDATE member set rating=? WHERE email = ? AND club = ?";
+
+  db.query(sql, [newRating, email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't update rating");
+
+    return res.send("🎉Successfully updated the rating");
+  });
+});
+
+//remove members from club
+app.post("/removeMembers", (req, res) => {
+  const { email, club } = req.body;
+  const sql = "DELETE FROM member WHERE email = ? and club = ?";
+
+  db.query(sql, [email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't remove the Member");
+
+    return res.send("Member removed.");
+  });
+});
+
+//total club members - right panel
+
+app.get("/clubGeneralMembers/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "Select Count(*) as totalCount from member WHERE club=?'";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+//volunteer event wise
+
+app.get("/eventWiseVol/:club", (req, res) => {
+  const { club } = req.params;
+  const sql =
+    "SELECT COUNT(*) as totalCount,e.name FROM volunteer v JOIN event e ON e.event_id=v.event_id WHERE club=? group by v.event_id";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
   });
 });
 
