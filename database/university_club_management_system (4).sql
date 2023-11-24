@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 07:51 PM
+-- Generation Time: Nov 18, 2023 at 12:28 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -56,22 +56,21 @@ CREATE TABLE `club` (
   `full_form` varchar(50) NOT NULL,
   `established_date` date NOT NULL,
   `location` varchar(50) NOT NULL,
-  `description` varchar(1000) NOT NULL,
-  `announcement` varchar(4000) DEFAULT NULL
+  `description` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `club`
 --
 
-INSERT INTO `club` (`name`, `full_form`, `established_date`, `location`, `description`, `announcement`) VALUES
-('BUCC', 'BRAC University Computer Club', '2014-10-21', 'ub81205', 'BRAC University Computer Club (BUCC) This club consists of a youthful team of passionate and hardworking Tech Enthusiast students. They strive to learn more about the advanced technologies of the 21st century. The club regularly offers workshops on web development, graphics designing, problem solving, and many other technological fields. To get the students engaging they organize contests on compe', 'Exciting news coming your way! 🚀 Get ready to embark on a journey of fun, laughter, and unforgettable moments. Drumroll, please... 🥁'),
-('BUCuC', 'BRAC University Cultural Club', '2014-10-21', 'ub20412', 'Welcome to the vibrant heartbeat of artistic expression and cultural celebration at BRAC University—the BRACU Cultural Club. Our diverse and dynamic community thrives on a fusion of traditions, music, dance, and creativity. Embrace the richness of cultural exchange as we unite students with a passion for the arts. From traditional performances to modern interpretations, join us in fostering a tape', NULL),
-('BUEDF', 'BRAC University Entrepreneurship Development Forum', '2013-01-01', 'ub50506', 'BRAC University Entrepreneurship Development Forum (EDF) was started in January 2004. EDF is the platform for Future Leaders of BRAC University. Entrepreneurship Development Forum (EDF) has been established to unearth the immense hidden potentiality and leadership of the students. The intention behind all the activities of this club is to help its members to sense the enormous latent force they possess. Moreover, complying with the modern day corporate ambiance, team work is emphasized here prior to everything so that the members can feel the bond in the long term when they will enter into the real corporate activities.', NULL),
-('BUFC', 'BRAC University Film Club', '2014-10-21', 'ub50605', 'Lights, camera, action! Welcome to the BRAC University Film Club, where storytelling comes to life on the big screen. Dive into the magic of cinema with fellow enthusiasts who share a passion for the art of filmmaking. From scriptwriting to editing, our club is a creative haven for aspiring directors, actors, and cinematographers. Join us for screenings, discussions, and hands-on projects that nurture your cinematic flair. Whether you\'re an aficionado or a novice, we\'re here to celebrate the diverse world of film and cultivate the next generation of storytellers. Immerse yourself in the reel world at the BRACU Film Club—where every frame tells a story.', NULL),
-('FCBU', 'Football Club Of BRAC University', '2014-10-21', 'ub21405', 'Get ready to lace up your boots and feel the adrenaline on the pitch with the BRAC University Football Club. Our club is more than just a team—it\'s a brotherhood of passionate players united by the love of the beautiful game. Whether you\'re a seasoned striker or a rookie goalie, we welcome all skill levels to join us in the pursuit of victory and camaraderie. Train hard, play harder, and be part of the spirited energy that fuels our football community. Embrace the thrill of the game, forge lasting friendships, and score unforgettable memories at the BRACU Football Club. Kick off your football journey with us!', NULL),
-('MONON', 'BRAC University MONON', '2014-10-21', 'ub21403', 'BRAC UNIVERSITY MONON brings out diversified skills by contemplating non-conventional artistry.', NULL),
-('ROBU', 'Robotics Club Of BRAC University', '2012-09-29', 'ub30303', 'Step into the future with the BRAC University Robotics Club—an innovation hub where curiosity meets cutting-edge technology. Our club is a dynamic platform for aspiring engineers, programmers, and tech enthusiasts to explore the exciting realm of robotics. Dive into hands-on projects, workshops, and competitions that challenge your intellect and fuel your passion for automation. Whether you\'re a seasoned expert or a curious beginner, our community thrives on collaboration and pushing the boundaries of what\'s possible. Join us in building a future where creativity and robotics converge to shape tomorrow\'s world. Unleash your potential with the BRACU Robotics Club!', NULL);
+INSERT INTO `club` (`name`, `full_form`, `established_date`, `location`, `description`) VALUES
+('BUCC', 'BRAC University Computer Club', '2014-10-21', 'ub81205', 'BRAC University Computer Club (BUCC) This club consists of a youthful team of passionate and hardworking Tech Enthusiast students. They strive to learn more about the advanced technologies of the 21st century. The club regularly offers workshops on web development, graphics designing, problem solving, and many other technological fields. To get the students engaging they organize contests on compe'),
+('BUCuC', 'BRAC University Cultural Club', '2014-10-21', 'ub20412', 'Welcome to the vibrant heartbeat of artistic expression and cultural celebration at BRAC University—the BRACU Cultural Club. Our diverse and dynamic community thrives on a fusion of traditions, music, dance, and creativity. Embrace the richness of cultural exchange as we unite students with a passion for the arts. From traditional performances to modern interpretations, join us in fostering a tape'),
+('BUEDF', 'BRAC University Entrepreneurship Development Forum', '2013-01-01', 'ub50506', 'BRAC University Entrepreneurship Development Forum (EDF) was started in January 2004. EDF is the platform for Future Leaders of BRAC University. Entrepreneurship Development Forum (EDF) has been established to unearth the immense hidden potentiality and leadership of the students. The intention behind all the activities of this club is to help its members to sense the enormous latent force they possess. Moreover, complying with the modern day corporate ambiance, team work is emphasized here prior to everything so that the members can feel the bond in the long term when they will enter into the real corporate activities.'),
+('BUFC', 'BRAC University Film Club', '2014-10-21', 'ub50605', 'Lights, camera, action! Welcome to the BRAC University Film Club, where storytelling comes to life on the big screen. Dive into the magic of cinema with fellow enthusiasts who share a passion for the art of filmmaking. From scriptwriting to editing, our club is a creative haven for aspiring directors, actors, and cinematographers. Join us for screenings, discussions, and hands-on projects that nurture your cinematic flair. Whether you\'re an aficionado or a novice, we\'re here to celebrate the diverse world of film and cultivate the next generation of storytellers. Immerse yourself in the reel world at the BRACU Film Club—where every frame tells a story.'),
+('FCBU', 'Football Club Of BRAC University', '2014-10-21', 'ub21405', 'Get ready to lace up your boots and feel the adrenaline on the pitch with the BRAC University Football Club. Our club is more than just a team—it\'s a brotherhood of passionate players united by the love of the beautiful game. Whether you\'re a seasoned striker or a rookie goalie, we welcome all skill levels to join us in the pursuit of victory and camaraderie. Train hard, play harder, and be part of the spirited energy that fuels our football community. Embrace the thrill of the game, forge lasting friendships, and score unforgettable memories at the BRACU Football Club. Kick off your football journey with us!'),
+('MONON', 'BRAC University MONON', '2014-10-21', 'ub21403', 'BRAC UNIVERSITY MONON brings out diversified skills by contemplating non-conventional artistry.'),
+('ROBU', 'Robotics Club Of BRAC University', '2012-09-29', 'ub30303', 'Step into the future with the BRAC University Robotics Club—an innovation hub where curiosity meets cutting-edge technology. Our club is a dynamic platform for aspiring engineers, programmers, and tech enthusiasts to explore the exciting realm of robotics. Dive into hands-on projects, workshops, and competitions that challenge your intellect and fuel your passion for automation. Whether you\'re a seasoned expert or a curious beginner, our community thrives on collaboration and pushing the boundaries of what\'s possible. Join us in building a future where creativity and robotics converge to shape tomorrow\'s world. Unleash your potential with the BRACU Robotics Club!');
 
 -- --------------------------------------------------------
 
@@ -81,19 +80,20 @@ INSERT INTO `club` (`name`, `full_form`, `established_date`, `location`, `descri
 
 CREATE TABLE `department` (
   `name` varchar(100) NOT NULL,
+  `pin` int(100) NOT NULL,
   `head` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `designation` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`name`, `head`, `email`) VALUES
-('CSE', 'Sadia Kazi', 'cse@bracu.com'),
-('EEE', 'Shadman Shahriar', 'shadman@gmail.com'),
-('MNS', 'Mostak Ahmed', 'mns@gmail.com'),
-('PHY', 'Yousuf Hyder', 'phy@gmail.com');
+INSERT INTO `department` (`name`, `pin`, `head`, `email`, `designation`) VALUES
+('CSE', 12345, 'Sadia Kazi', 'cse@bracu.com', 'dept'),
+('MNS', 12345, 'Mostak Ahmed', 'mns@gmail.com', 'dept'),
+('PHY', 12345, 'Yousuf Hyder', 'phy@gmail.com', 'dept');
 
 -- --------------------------------------------------------
 
@@ -174,8 +174,15 @@ CREATE TABLE `incoming_request` (
   `gender` varchar(100) NOT NULL,
   `club` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `contact_no` varchar(100) NOT NULL
+  `contact_no` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `incoming_request`
+--
+
+INSERT INTO `incoming_request` (`name`, `designation`, `email`, `dob`, `department`, `gender`, `club`, `password`, `contact_no`) VALUES
+('John Newman', 'Member', 'john@gmail.com', '2002-07-19', 'CSE', 'Male', 'FCBU', 'john123', 2147483647);
 
 -- --------------------------------------------------------
 
@@ -191,25 +198,24 @@ CREATE TABLE `member` (
   `department` varchar(11) NOT NULL,
   `gender` varchar(11) NOT NULL,
   `club` varchar(110) NOT NULL,
-  `password` varchar(11) NOT NULL,
-  `contact_no` varchar(11) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `evaluation` varchar(1000) DEFAULT NULL
+  `password` int(11) NOT NULL,
+  `contact_no` int(11) NOT NULL,
+  `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`name`, `designation`, `email`, `dob`, `department`, `gender`, `club`, `password`, `contact_no`, `rating`, `evaluation`) VALUES
-('Abira Islam', 'hr', 'abira@gmail.com', '2004-06-19', 'CSE', 'Female', 'BUCC', 'abira123', '01291111111', 0, NULL),
-('hr', 'hr', 'advisor@advisor.org', '1980-03-05', 'CSE', 'male', 'BUCC', '12345', '1112220004', 0, NULL),
-('FlexedPanda', 'hr', 'flexed@gmail.com', '2000-04-19', 'CSE', 'male', 'ROBU', '12345', '1987634', 0, NULL),
-('Ichigo', 'general', 'ichigo@gmail.com', '2023-11-14', 'CSE', 'Male', 'BUCC', 'ichigo123', '01289028928', 6, NULL),
-('Keka Ferdous', 'general', 'keka@gmail.com', '2023-11-18', 'CSE', 'Female', 'BUCC', '12345', '01232222222', 3, NULL),
-('Neloy Kumar Saha', 'general', 'neloy@gmail.com', '2023-11-03', 'CSE', 'Male', 'BUCC', 'neloy123', '1928821212', 5, NULL),
-('Niaz', 'president', 'niaznafi@gmail.com', '1999-08-10', 'CSE', 'male', 'BUCC', '12345', '01733433100', 10, NULL),
-('Vader', 'general', 'president@gmail.com', '2015-08-05', 'CSE', 'male', 'BUFC', '12345', '1994225024', 0, NULL);
+INSERT INTO `member` (`name`, `designation`, `email`, `dob`, `department`, `gender`, `club`, `password`, `contact_no`, `rating`) VALUES
+('Abira', 'hr', 'abira@gmail.com', '2023-08-01', 'EEE', 'female', 'BUCC', 12345, 1994225023, 0),
+('hr', 'hr', 'advisor@advisor.org', '1980-03-05', 'CSE', 'male', 'BUCC', 12345, 1112220004, 0),
+('FlexedPanda', 'hr', 'flexed@gmail.com', '2000-04-19', 'CSE', 'male', 'ROBU', 12345, 1987634, 0),
+('John Wick', 'hr', 'john@gmail.com', '2005-01-10', 'LLB', 'male', 'BUCC', 12345, 91911, 0),
+('Jon Snow The King In the North', 'general', 'jonsnow@beyondthewall.org', '2000-08-10', 'CSE', 'Male', 'BUEDF', 12345, 1377434543, 0),
+('Keka', 'general', 'keka@gmail.com', '1992-09-03', 'EEE', 'Female', 'BUCC', 12345, 8938594, 0),
+('Vader', 'general', 'president@gmail.com', '2015-08-05', 'CSE', 'male', 'BUFC', 12345, 1994225024, 0),
+('Rasel', 'general', 'rasel@gmail.com', '2001-05-06', 'BBA', 'male', 'BUCC', 12345, 7535335, 0);
 
 -- --------------------------------------------------------
 
@@ -228,8 +234,7 @@ CREATE TABLE `participate` (
 --
 
 INSERT INTO `participate` (`club`, `email`, `event_id`) VALUES
-('BUCC', 'keka@gmail.com', 5),
-('BUFC', 'president@gmail.com', 1);
+('BUCC', 'keka@gmail.com', 5);
 
 -- --------------------------------------------------------
 
@@ -313,7 +318,7 @@ ALTER TABLE `funding_request`
 -- Indexes for table `incoming_request`
 --
 ALTER TABLE `incoming_request`
-  ADD PRIMARY KEY (`email`,`club`);
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `member`
