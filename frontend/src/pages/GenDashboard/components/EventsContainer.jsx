@@ -143,7 +143,7 @@ export const EventsContainer = (props) => {
       {curTab === "volunteer" && (
         <div className="events-container">
           <h1 className="section-heading">Volunteering Events</h1>
-          <div className="events">{expand ? eventDetails /> : volunEventCards}</div>
+          <div className="events">{volunEventCards}</div>
         </div>
       )}
     </section>
