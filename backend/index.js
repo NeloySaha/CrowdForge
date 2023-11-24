@@ -203,3 +203,20 @@ app.get("/announcement/:club", (req, res) => {
     return res.json(data);
   });
 });
+
+/////////////////
+///// HR PAGE //////
+////////////////
+
+//member incoming requests
+
+app.get("/pendingReq/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "Select * from incoming_request where club=?";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
