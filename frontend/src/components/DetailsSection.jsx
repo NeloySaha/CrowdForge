@@ -1,76 +1,52 @@
-import React from "react";
+import { useState } from "react";
+import { UserInfo } from "./UserInfo";
+import { EditUserInfo } from "./EditUserInfo";
 
-export const DetailsSection = ({ loggedUser }) => {
-  const {
-    name,
-    gender,
-    club,
-    contact_no,
-    designation,
-    dob,
-    email,
-    department,
-    rating,
-  } = loggedUser;
+export const DetailsSection = (props) => {
+  const [curTab, setCurTab] = useState("profile");
 
-  const formattedDate = new Date(dob).toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+  const currentStyle = (cond) => ({
+    borderBottom: cond ? "3px solid #1a76f5" : "",
   });
-
   return (
-    <section className="detail-container">
-      <h2 className="section-heading">Personal Information</h2>
-
-      <ul className="info-container">
+    <section className="detail-section">
+      <ul className="dash-nav">
         <li>
-          <p className="category">Name:</p>
-          <p className="detail-val">{name}</p>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("profile")}
+            style={currentStyle(curTab === "profile")}
+          >
+            Your Info
+          </button>
         </li>
-
         <li>
-          <p className="category">Email:</p>
-          <p className="detail-val">{email}</p>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("edit")}
+            style={currentStyle(curTab === "edit")}
+          >
+            Edit Info
+          </button>
         </li>
-
-        <li>
-          <p className="category">Date of Birth:</p>
-          <p className="detail-val">{formattedDate}</p>
-        </li>
-
-        <li>
-          <p className="category">Gender:</p>
-          <p className="detail-val">{gender}</p>
-        </li>
-
-        <li>
-          <p className="category">Department:</p>
-          <p className="detail-val">{department}</p>
-        </li>
-
-        <li>
-          <p className="category">Designation:</p>
-          <p className="detail-val">{designation}</p>
-        </li>
-
-        <li>
-          <p className="category">Phone Number:</p>
-          <p className="detail-val">{contact_no}</p>
-        </li>
-
-        <li>
-          <p className="category">Club:</p>
-          <p className="detail-val">{club}</p>
-        </li>
-
-        {designation === "general" && (
-          <li>
-            <p className="category">Current Rating:</p>
-            <p className="detail-val">{rating}/10</p>
-          </li>
-        )}
       </ul>
+
+      {curTab === "profile" && (
+        <div className="info-box">
+          <h2 className="section-heading">Personal Information</h2>
+          <div className="info">
+            <UserInfo {...props} />
+          </div>
+        </div>
+      )}
+      {curTab === "edit" && (
+        <div className="info-box">
+          <h2 className="section-heading">Edit Your Information</h2>
+          <div className="info">
+            <EditUserInfo {...props} />
+          </div>
+        </div>
+      )}
     </section>
   );
 };
