@@ -322,8 +322,7 @@ app.post("/removeMembers", (req, res) => {
 
 app.get("/clubGeneralMembers/:club", (req, res) => {
   const { club } = req.params;
-  const sql =
-    "Select Count(*) as totalCount from member WHERE club=? AND designation='general'";
+  const sql = "Select Count(*) as totalCount from member WHERE club=?'";
 
   db.query(sql, [club], (err, data) => {
     if (err) return res.json(err);
