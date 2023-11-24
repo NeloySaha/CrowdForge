@@ -168,10 +168,6 @@ app.post("/volunteer", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log("Listening on 7001!");
-});
-
 //edit profile
 
 app.post("/editProfile", (req, res) => {
