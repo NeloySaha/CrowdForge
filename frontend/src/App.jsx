@@ -17,11 +17,6 @@ function App() {
     JSON.parse(localStorage.getItem("currentUser")) || {}
   );
 
-  // const start = (page - 1) * state.search.resultsPerPage; // 0 for example
-  // const end = page * state.search.resultsPerPage; // 10 for example --> will work until 9 since it's exclusive
-
-  // return state.search.results.slice(start, end);
-
   const toastPrimaryCategories = {
     position: "bottom-center",
     closeOnClick: true,

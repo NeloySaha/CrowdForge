@@ -319,10 +319,6 @@ app.get("/eventWiseVol/:club", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on ${process.env.PORT}!`);
-});
-
 //edit profile
 
 app.post("/editProfile", (req, res) => {
@@ -497,5 +493,5 @@ app.get("/eventWiseVol/:club", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Listening on 7001!");
+  console.log(`Listening on ${process.env.PORT}!`);
 });

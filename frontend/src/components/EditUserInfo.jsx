@@ -68,7 +68,7 @@ export const EditUserInfo = ({
       editInfo.name.length !== 0 &&
       editInfo.dob.length !== 0 &&
       editInfo.gender.length !== 0 &&
-      editInfo.contact_no.length !== 0 &&
+      editInfo.contact_no.length === 11 &&
       editInfo.department.length !== 0
     ) {
       setEditDisabled(false);
@@ -237,7 +237,7 @@ export const EditUserInfo = ({
 
       <div className="auth-form--category">
         <p>
-          Phone Number:<span>*</span>
+          Phone Number:(Must be 11 digit)<span>*</span>
         </p>
         <input
           type="number"
