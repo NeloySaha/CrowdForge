@@ -80,7 +80,7 @@ export const Registration = ({ failedToast, successToast }) => {
       regInfo.name.length !== 0 &&
       regInfo.dateOfBirth.length !== 0 &&
       regInfo.gender.length !== 0 &&
-      regInfo.contactNo.length !== 0
+      regInfo.contactNo.length === 11
     ) {
       setRegDisabled(false);
     } else {
@@ -246,7 +246,7 @@ export const Registration = ({ failedToast, successToast }) => {
 
       <div className="auth-form--category">
         <p>
-          Phone Number: <span>*</span>
+          Phone Number:(Must be 11 digit) <span>*</span>
         </p>
         <input
           type="number"

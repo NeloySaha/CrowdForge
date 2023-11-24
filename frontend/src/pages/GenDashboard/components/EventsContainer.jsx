@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { EventCard } from "./EventCard";
 import { ParticipatingEventCard } from "./ParticipatingEventCard";
 import { VolunEventCard } from "./VolunEventCard";
+import { Announcements } from "../../../components/Announcements";
 
 export const EventsContainer = (props) => {
   const [upEventData, setUpEventData] = useState([]);
   const [parEventData, setParEventData] = useState([]);
   const [volunEventData, setVolunEventData] = useState([]);
-  const [curTab, setCurTab] = useState("upcoming");
+  const [curTab, setCurTab] = useState("ann");
   const { email } = props.loggedUser;
 
   const getUpcomingEventsData = async () => {
@@ -96,7 +97,16 @@ export const EventsContainer = (props) => {
 
   return (
     <section className="event-section">
-      <ul className="auth-nav">
+      <ul className="dash-nav">
+        <li>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("ann")}
+            style={currentStyle(curTab === "ann")}
+          >
+            Announcements
+          </button>
+        </li>
         <li>
           <button
             className="auth-nav-btn"
@@ -125,6 +135,14 @@ export const EventsContainer = (props) => {
           </button>
         </li>
       </ul>
+
+      {curTab === "ann" && (
+        <div className="events-container">
+          <div className="events">
+            <Announcements {...props} />
+          </div>
+        </div>
+      )}
 
       {curTab === "upcoming" && (
         <div className="events-container">

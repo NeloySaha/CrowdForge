@@ -316,9 +316,9 @@ app.post("/removeMembers", (req, res) => {
 
 //total club members - right panel
 
-app.get("/clubGeneralMembers/:club", (req, res) => {
+app.get("/clubMembers/:club", (req, res) => {
   const { club } = req.params;
-  const sql = "Select Count(*) as totalCount from member WHERE club=?'";
+  const sql = "Select Count(*) as totalCount from member WHERE club=?";
 
   db.query(sql, [club], (err, data) => {
     if (err) return res.json(err);
@@ -342,5 +342,5 @@ app.get("/eventWiseVol/:club", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Listening on 7001!");
+  console.log(`Listening on ${process.env.PORT}!`);
 });
