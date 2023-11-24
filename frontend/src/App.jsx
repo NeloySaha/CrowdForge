@@ -10,11 +10,17 @@ import { AuthPage } from "./pages/Authentication/AuthPage";
 import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
 import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
 import { Navbar } from "./components/Navbar";
+import { PresidentDash } from "./pages/PresidentDashboard/PresidentDash";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
   );
+
+  // const start = (page - 1) * state.search.resultsPerPage; // 0 for example
+  // const end = page * state.search.resultsPerPage; // 10 for example --> will work until 9 since it's exclusive
+
+  // return state.search.results.slice(start, end);
 
   const toastPrimaryCategories = {
     position: "bottom-center",
@@ -59,10 +65,8 @@ function App() {
     successToast,
   };
 
-  console.log("Branch e uthe naki test kortesi");
-
   return (
-    <>
+    <div className="dash">
       <ToastContainer />
       <Navbar {...props} />
       <Routes>
@@ -92,8 +96,21 @@ function App() {
         >
           <Route path="/humanResource" element={<HrDashboard {...props} />} />
         </Route>
+
+        <Route
+          element={
+            <ProtectedRoute
+              condition={
+                Object.keys(loggedUser).length !== 0 &&
+                loggedUser.designation === "president"
+              }
+            />
+          }
+        >
+          <Route path="/president" element={<PresidentDash {...props} />} />
+        </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

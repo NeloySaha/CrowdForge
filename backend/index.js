@@ -168,8 +168,159 @@ app.post("/volunteer", (req, res) => {
   });
 });
 
+app.post("/editProfile", (req, res) => {
+  const { name, gender, department, contact_no, password, dob, email, club } =
+    req.body;
+  const sql =
+    "UPDATE member SET name = ?, gender=?, department=?,dob=?,contact_no=?,password=? WHERE email = ? AND club = ?";
+
+  db.query(
+    sql,
+    [name, gender, department, dob, contact_no, password, email, club],
+    (err, data) => {
+      if (err) return res.send("Sorry! Couldn't Update your Information");
+
+      return res.send("Your information updated successfully🎉");
+    }
+  );
+});
+
+app.get("/announcement/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "SELECT announcement FROM club WHERE name=?";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.send(err);
+
+    return res.json(data);
+  });
+});
+
+app.get("/pendingReq/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "Select * from incoming_request where club=?";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+app.post("/hrMemInsert", (req, res) => {
+  const {
+    name,
+    email,
+    dob,
+    department,
+    gender,
+    club,
+    password,
+    contact_no,
+    evaluation,
+  } = req.body;
+
+  const sql1 =
+    "INSERT into member (name,designation,email,dob,department,gender,club,password,contact_no,rating,evaluation) Values (?,'general',?,?,?,?,?,?,?,0,?)";
+
+  const sql2 = "DELETE FROM incoming_request WHERE email = ? and club = ?";
+
+  db.query(
+    sql1,
+    [
+      name,
+      email,
+      dob,
+      department,
+      gender,
+      club,
+      password,
+      contact_no,
+      evaluation,
+    ],
+    (err1, data1) => {
+      if (err1) {
+        return res.send("Couldn't insert");
+      }
+
+      db.query(sql2, [email, club], (err2, data2) => {
+        if (err2) return res.send("Couldn't remove the pending request");
+
+        return res.send("🎉Member now Approved");
+      });
+    }
+  );
+});
+
+app.post("/hrRejectReq", (req, res) => {
+  const { email, club } = req.body;
+  const sql = "DELETE FROM incoming_request WHERE email = ? and club = ?";
+
+  db.query(sql, [email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't remove the request");
+
+    return res.send("Request removed.");
+  });
+});
+
+app.get("/hrMonitor/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "SELECT * FROM member WHERE club=? AND designation='general'";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+app.post("/updateRating", (req, res) => {
+  const { email, club, newRating } = req.body;
+  const sql = "UPDATE member set rating=? WHERE email = ? AND club = ?";
+
+  db.query(sql, [newRating, email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't update rating");
+
+    return res.send("🎉Successfully updated the rating");
+  });
+});
+
+app.post("/removeMembers", (req, res) => {
+  const { email, club } = req.body;
+  const sql = "DELETE FROM member WHERE email = ? and club = ?";
+
+  db.query(sql, [email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't remove the Member");
+
+    return res.send("Member removed.");
+  });
+});
+
+app.get("/clubMembers/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "Select Count(*) as totalCount from member WHERE club=? ";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+app.get("/eventWiseVol/:club", (req, res) => {
+  const { club } = req.params;
+  const sql =
+    "SELECT COUNT(*) as totalCount,e.name FROM volunteer v JOIN event e ON e.event_id=v.event_id WHERE club=? group by v.event_id";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
 app.listen(process.env.PORT, () => {
-  console.log("Listening on 7001!");
+  console.log(`Listening on ${process.env.PORT}!`);
 });
 
 //edit profile

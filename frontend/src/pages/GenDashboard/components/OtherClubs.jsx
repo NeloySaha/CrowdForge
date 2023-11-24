@@ -3,9 +3,10 @@ import axios from "axios";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 
-export const OtherClubs = ({ loggedUser, setLoggedUser }) => {
+export const OtherClubs = ({ loggedUser }) => {
   const { club } = loggedUser;
   const [otherClubs, setOtherClubs] = useState([]);
+
   const navigate = useNavigate();
 
   const getOtherClubData = async () => {
