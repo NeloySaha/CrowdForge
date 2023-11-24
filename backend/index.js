@@ -306,4 +306,45 @@ app.post("/updateRating", (req, res) => {
   });
 });
 
-//
+//remove members from club
+app.post("/removeMembers", (req, res) => {
+  const { email, club } = req.body;
+  const sql = "DELETE FROM member WHERE email = ? and club = ?";
+
+  db.query(sql, [email, club], (err, data) => {
+    if (err) return res.send("Sorry! Couldn't remove the Member");
+
+    return res.send("Member removed.");
+  });
+});
+
+//total club members - right panel
+
+app.get("/clubGeneralMembers/:club", (req, res) => {
+  const { club } = req.params;
+  const sql = "Select Count(*) as totalCount from member WHERE club=?'";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+//volunteer event wise
+
+app.get("/eventWiseVol/:club", (req, res) => {
+  const { club } = req.params;
+  const sql =
+    "SELECT COUNT(*) as totalCount,e.name FROM volunteer v JOIN event e ON e.event_id=v.event_id WHERE club=? group by v.event_id";
+
+  db.query(sql, [club], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.json(data);
+  });
+});
+
+app.listen(process.env.PORT, () => {
+  console.log("Listening on 7001!");
+});
