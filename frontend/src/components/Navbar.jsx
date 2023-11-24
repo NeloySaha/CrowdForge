@@ -8,6 +8,8 @@ export const Navbar = ({ setLoggedUser }) => {
     userType = "Member";
   } else if (location.pathname === "/humanResource") {
     userType = "HR";
+  } else if (location.pathname === "/president") {
+    userType = "President";
   }
 
   return (
