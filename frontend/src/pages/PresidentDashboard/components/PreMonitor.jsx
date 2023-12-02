@@ -1,8 +1,8 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { MonitorMemberCard } from "./MonitorMemberCard";
+import { PreMonitorCard } from "./PreMonitorCard";
 
-export const Monitor = (props) => {
+export const PreMonitor = (props) => {
   const [query, setQuery] = useState("");
   const [monitoredMembers, setMonitoredMembers] = useState([]);
 
@@ -13,8 +13,12 @@ export const Monitor = (props) => {
 
   const getAllData = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/hrMonitor/${props.loggedUser.club}`
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/clubMembers`,
+        {
+          club: props.loggedUser.club,
+          email: props.loggedUser.email,
+        }
       );
 
       setMonitoredMembers(res.data);
@@ -25,10 +29,14 @@ export const Monitor = (props) => {
 
   const getSearchData = async () => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/hrSearch`, {
-        query,
-        club: props.loggedUser.club,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/presidentSearch`,
+        {
+          query,
+          club: props.loggedUser.club,
+          email: props.loggedUser.email,
+        }
+      );
 
       setMonitoredMembers(res.data);
     } catch (err) {
@@ -41,9 +49,9 @@ export const Monitor = (props) => {
       ...obj,
       successToast: props.successToast,
       failedToast: props.failedToast,
-      getMemberData: getAllData,
+      getAllData,
     };
-    return <MonitorMemberCard key={obj.email} {...newProps} />;
+    return <PreMonitorCard key={obj.email} {...newProps} />;
   });
 
   useEffect(() => {
@@ -70,7 +78,7 @@ export const Monitor = (props) => {
       <div className="pending-card-container">
         <ul className="category-title-bar">
           <li>Name</li>
-          <li>Department</li>
+          <li>Designation</li>
           <li>Phone Number</li>
           <li>Current Rating</li>
         </ul>

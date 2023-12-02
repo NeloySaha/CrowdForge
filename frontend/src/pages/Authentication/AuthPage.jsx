@@ -11,10 +11,7 @@ export const AuthPage = (props) => {
   return (
     <section className="section-auth">
       <div className="auth-container">
-        <div className="auth-heading">
-          <h1>Welcome to Club Management</h1>
-          <p>Sign in to get started</p>
-        </div>
+        <h1 className="auth-heading">Welcome to CrowdForge</h1>
 
         <div className="auth">
           <ul className="auth-nav">
@@ -38,7 +35,9 @@ export const AuthPage = (props) => {
             </li>
           </ul>
 
-          {authState ? <Registration {...props} /> : <Login {...props} />}
+          <div className="form-container">
+            {authState ? <Registration {...props} /> : <Login {...props} />}
+          </div>
         </div>
       </div>
     </section>

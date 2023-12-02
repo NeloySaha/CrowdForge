@@ -3,7 +3,7 @@ import axios from "axios";
 import { IoAddOutline, IoChevronDownSharp, IoChevronUp } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
 
-export const MonitorMemberCard = ({
+export const PreMonitorCard = ({
   name,
   gender,
   club,
@@ -15,10 +15,8 @@ export const MonitorMemberCard = ({
   rating,
   successToast,
   failedToast,
-  getMemberData,
+  getAllData,
 }) => {
-  const [curRating, setCurRating] = useState(+rating);
-  const [showConfirmBtn, setShowConfirmBtn] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const [promoted_designation, setPromotedDesignation] = useState("executive");
 
@@ -26,34 +24,22 @@ export const MonitorMemberCard = ({
     setPromotedDesignation(e.target.value);
   };
 
-  const handlePlus = () => {
-    setCurRating((prev) => (prev < 10 ? prev + 1 : prev));
-    setShowConfirmBtn(true);
-  };
-
-  const handleMinus = () => {
-    setCurRating((prev) => (prev > 0 ? prev - 1 : prev));
-    setShowConfirmBtn(true);
-  };
-
-  const handleUpdateRating = async () => {
+  const promoteMember = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/updateRating`,
+        `${import.meta.env.VITE_API_URL}/presidentPromote`,
         {
+          promoted_designation,
           email,
           club,
-          newRating: curRating,
         }
       );
-
       successToast(res.data);
-      setShowConfirmBtn(false);
     } catch (err) {
       console.log(err);
       failedToast(err.response.data);
     } finally {
-      getMemberData();
+      getAllData();
     }
   };
 
@@ -67,36 +53,13 @@ export const MonitorMemberCard = ({
         }
       );
 
+      console.log(res.data);
       successToast(res.data);
     } catch (err) {
       console.log(err);
       failedToast(err.response.data);
     } finally {
-      getMemberData();
-    }
-  };
-
-  const insertPromoteData = async () => {
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/hrPromoReq`,
-        {
-          name,
-          email,
-          club,
-          designation,
-          promoted_designation,
-        }
-      );
-
-      if (res.status === 200) {
-        successToast("Promotion Request Sent!");
-      }
-    } catch (err) {
-      console.log(err);
-      failedToast("Sorry Request failed!");
-    } finally {
-      getMemberData();
+      getAllData();
     }
   };
 
@@ -106,32 +69,16 @@ export const MonitorMemberCard = ({
         <p>{name}</p>
       </div>
 
-      <div className="category">
-        <p>{department}</p>
+      <div className="category category-designation">
+        <p>{designation}</p>
       </div>
 
       <div className="category">
         <p>{contact_no}</p>
       </div>
 
-      <div className="category rating-grid">
-        <div className="rating-control">
-          <button className="rating-minus" onClick={handleMinus}>
-            <FiMinus size="1.6rem" color="#fff" />
-          </button>
-          <p>{curRating}</p>
-          <button className="rating-plus" onClick={handlePlus}>
-            <IoAddOutline size="1.6rem" color="#fff" />
-          </button>
-        </div>
-
-        <div>
-          {showConfirmBtn && (
-            <button className="confirm-btn" onClick={handleUpdateRating}>
-              Confirm
-            </button>
-          )}
-        </div>
+      <div className="category">
+        <p>{rating}</p>
       </div>
 
       <div className="category">
@@ -149,12 +96,13 @@ export const MonitorMemberCard = ({
           <div className="monitor-selector">
             <select name="promoted_designation" onChange={handleChange}>
               <option value="executive">Executive</option>
+
               <option value="hr">HR</option>
               <option value="treasurer">Treasurer</option>
             </select>
           </div>
 
-          <button className="confirm-btn" onClick={insertPromoteData}>
+          <button className="confirm-btn" onClick={promoteMember}>
             Promote
           </button>
 

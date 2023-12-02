@@ -69,6 +69,10 @@ export const Login = ({ setLoggedUser, failedToast, successToast }) => {
         navigate("/humanResource");
       } else if (res.data[0].designation === "president") {
         navigate("/president");
+      } else if (res.data[0].designation === "advisor") {
+        navigate("/advisor");
+      } else if (res.data[0].designation === "treasurer") {
+        navigate("/treasurer");
       }
 
       successToast(`🎉Welcome, ${res.data[0].name}!`);

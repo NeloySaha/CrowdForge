@@ -11,6 +11,8 @@ export const UserInfo = ({ loggedUser }) => {
     email,
     department,
     rating,
+    bank_account,
+    money,
   } = loggedUser;
 
   const formattedDate = new Date(dob).toLocaleString("en-US", {
@@ -61,6 +63,20 @@ export const UserInfo = ({ loggedUser }) => {
           <p className="category">Club:</p>
           <p className="detail-val">{club}</p>
         </li>
+
+        {(designation === "advisor" || designation === "treasurer") && (
+          <li>
+            <p className="category">Bank Account No.:</p>
+            <p className="detail-val">{bank_account}</p>
+          </li>
+        )}
+
+        {(designation === "advisor" || designation === "treasurer") && (
+          <li>
+            <p className="category">Bank Balance:</p>
+            <p className="detail-val">TK {money}</p>
+          </li>
+        )}
       </ul>
     </div>
   );

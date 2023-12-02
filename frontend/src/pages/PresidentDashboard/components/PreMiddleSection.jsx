@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Announcements } from "../../../components/Announcements";
 import { CreateEvent } from "./CreateEvent";
-import { ClubDetail } from "./ClubDetail";
-import { MonitorClub } from "./MonitorClub";
+import { PreMonitor } from "./PreMonitor";
+import { CreateAnnouncement } from "./CreateAnnouncement";
+import { PresEvents } from "./PresEvents";
+import { PromotionApprovals } from "./PromotionApprovals";
 
 export const PreMiddleSection = (props) => {
   const [curTab, setCurTab] = useState("announcements");
@@ -25,6 +27,15 @@ export const PreMiddleSection = (props) => {
         <li>
           <button
             className="auth-nav-btn"
+            onClick={() => setCurTab("createAnn")}
+            style={currentStyle(curTab === "createAnn")}
+          >
+            Create Announcement
+          </button>
+        </li>
+        <li>
+          <button
+            className="auth-nav-btn"
             onClick={() => setCurTab("createEvent")}
             style={currentStyle(curTab === "createEvent")}
           >
@@ -34,27 +45,38 @@ export const PreMiddleSection = (props) => {
         <li>
           <button
             className="auth-nav-btn"
-            onClick={() => setCurTab("monitor")}
-            style={currentStyle(curTab === "monitor")}
+            onClick={() => setCurTab("ongoingEvent")}
+            style={currentStyle(curTab === "ongoingEvent")}
           >
-            Monitor Club
+            Ongoing Events
           </button>
         </li>
         <li>
           <button
             className="auth-nav-btn"
-            onClick={() => setCurTab("detail")}
-            style={currentStyle(curTab === "detail")}
+            onClick={() => setCurTab("monitor")}
+            style={currentStyle(curTab === "monitor")}
           >
-            Club Details
+            Monitor
+          </button>
+        </li>
+        <li>
+          <button
+            className="auth-nav-btn"
+            onClick={() => setCurTab("promotion")}
+            style={currentStyle(curTab === "promotion")}
+          >
+            Promotion Requests
           </button>
         </li>
       </ul>
 
       <div>{curTab === "announcements" && <Announcements {...props} />}</div>
+      <div>{curTab === "createAnn" && <CreateAnnouncement {...props} />}</div>
       <div>{curTab === "createEvent" && <CreateEvent {...props} />}</div>
-      <div>{curTab === "monitor" && <MonitorClub {...props} />}</div>
-      <div>{curTab === "detail" && <ClubDetail {...props} />}</div>
+      <div>{curTab === "ongoingEvent" && <PresEvents {...props} />}</div>
+      <div>{curTab === "monitor" && <PreMonitor {...props} />}</div>
+      <div>{curTab === "promotion" && <PromotionApprovals {...props} />}</div>
     </section>
   );
 };

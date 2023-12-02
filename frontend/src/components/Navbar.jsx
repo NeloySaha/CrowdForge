@@ -10,6 +10,10 @@ export const Navbar = ({ setLoggedUser }) => {
     userType = "HR";
   } else if (location.pathname === "/president") {
     userType = "President";
+  } else if (location.pathname === "/advisor") {
+    userType = "Advisor";
+  } else if (location.pathname === "/treasurer") {
+    userType = "Treasurer";
   }
 
   return (

@@ -61,7 +61,6 @@ export const EditUserInfo = ({
   }, []);
 
   useEffect(() => {
-    console.log(editInfo);
     if (
       editInfo.oldPass.length !== 0 &&
       editInfo.password.length !== 0 &&

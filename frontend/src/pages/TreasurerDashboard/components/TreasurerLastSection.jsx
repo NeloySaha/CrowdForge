@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const HrLastSection = ({ loggedUser }) => {
+export const TreasurerLastSection = ({ loggedUser }) => {
   const { club } = loggedUser;
 
   const [memData, setMemData] = useState(0);

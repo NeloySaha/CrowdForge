@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline } from "react-icons/io5";
+import axios from "axios";
 
 export const VolunEventCard = ({
   capacity,
@@ -16,11 +17,35 @@ export const VolunEventCard = ({
   successToast,
   failedToast,
 }) => {
+  const [taskData, setTaskData] = useState({});
+  const [taskDone, setTaskDone] = useState(false);
+
+  const getTaskData = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/assignedEventTask`,
+        {
+          club: loggedUser.club,
+          email: loggedUser.email,
+          event_id,
+        }
+      );
+
+      setTaskData(res.data[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const formattedDate = new Date(date).toLocaleString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
+
+  useEffect(() => {
+    getTaskData();
+  }, []);
   return (
     <div className="event-box">
       <div className="event-head-container">
@@ -48,6 +73,35 @@ export const VolunEventCard = ({
           <p>{formattedDate}</p>
         </li>
       </ul>
+
+      <div className="vol-task-checkbox">
+        <h2>Task Assigned</h2>
+        <div>
+          <input
+            type="checkbox"
+            id="scales"
+            name="task"
+            onChange={() => setTaskDone((prev) => !prev)}
+            checked={taskDone}
+          />
+          <label for="task">
+            <p>{taskData.task}</p>
+            <p>Money Received - TK{taskData.money}</p>
+            {taskDone && (
+              <div>
+                <button
+                  className="task-btn-complete"
+                  onClick={() => {
+                    console.log("Task Completed");
+                  }}
+                >
+                  Confirm
+                </button>
+              </div>
+            )}
+          </label>
+        </div>
+      </div>
     </div>
   );
 };

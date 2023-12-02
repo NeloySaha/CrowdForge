@@ -1,7 +1,7 @@
 import React from "react";
 import { PreDashSection } from "./components/PreDashSection";
 
-export const PresidentDash = (props) => {
+export const PreDashboard = (props) => {
   return (
     <section>
       <PreDashSection {...props} />

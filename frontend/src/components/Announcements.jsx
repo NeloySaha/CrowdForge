@@ -10,7 +10,7 @@ export const Announcements = ({ loggedUser }) => {
         `${import.meta.env.VITE_API_URL}/announcement/${loggedUser.club}`
       );
 
-      setAnnouncment(res.data[0].announcement);
+      setAnnouncment(res.data[0]);
     } catch (err) {
       console.log(err);
     }
@@ -27,8 +27,8 @@ export const Announcements = ({ loggedUser }) => {
         <p className="announcement-text">No announcements yet</p>
       ) : (
         <div className="ann-card">
-          <h1 className="ann-heading">🎉Hey {loggedUser.club} Family!🎉</h1>
-          {announcement}
+          <h1 className="ann-heading">{announcement.announcement_title}</h1>
+          <p className="ann-detail">{announcement.announcement_detail}</p>
         </div>
       )}
     </div>

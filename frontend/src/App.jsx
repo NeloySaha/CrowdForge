@@ -6,11 +6,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/styles.css";
 
+import { Navbar } from "./components/Navbar";
 import { AuthPage } from "./pages/Authentication/AuthPage";
 import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
 import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
-import { Navbar } from "./components/Navbar";
-import { PresidentDash } from "./pages/PresidentDashboard/PresidentDash";
+import { PreDashboard } from "./pages/PresidentDashboard/PreDashboard";
+import { AdvisorDashboard } from "./pages/AdvisorDashboard/AdvisorDashboard";
+import { FundModal } from "./modals/FundModal";
+import { TreasurerDashboard } from "./pages/TreasurerDashboard/TreasurerDashboard";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(
@@ -24,11 +27,11 @@ function App() {
     draggable: true,
   };
   const toastFontStyle = {
-    fontFamily: "Raleway",
+    fontFamily: "Inter",
     fontSize: "1.2rem",
-    fontWeight: 600,
+    fontWeight: 500,
     letterSpacing: "0.75px",
-    color: "#1a1d2c",
+    color: "#333",
   };
 
   useEffect(() => {
@@ -61,7 +64,7 @@ function App() {
   };
 
   return (
-    <div className="dash">
+    <section>
       <ToastContainer />
       <Navbar {...props} />
       <Routes>
@@ -102,10 +105,39 @@ function App() {
             />
           }
         >
-          <Route path="/president" element={<PresidentDash {...props} />} />
+          <Route path="/president" element={<PreDashboard {...props} />} />
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute
+              condition={
+                Object.keys(loggedUser).length !== 0 &&
+                loggedUser.designation === "advisor"
+              }
+            />
+          }
+        >
+          <Route path="/advisor" element={<AdvisorDashboard {...props} />} />
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute
+              condition={
+                Object.keys(loggedUser).length !== 0 &&
+                loggedUser.designation === "treasurer"
+              }
+            />
+          }
+        >
+          <Route
+            path="/treasurer"
+            element={<TreasurerDashboard {...props} />}
+          />
         </Route>
       </Routes>
-    </div>
+    </section>
   );
 }
 
