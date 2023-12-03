@@ -54,15 +54,24 @@ export const Monitor = (props) => {
     <div>
       <h2 className="section-heading">Monitor Club Members</h2>
       <form className="hr-monitor-form" onSubmit={submitFunc}>
-        <input
-          className="search-box"
-          type="search"
-          placeholder="Search members"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button type="submit">Search</button>
-        <button type="button" onClick={getAllData}>
+        <div className="search-container">
+          <input
+            className="search-box"
+            type="search"
+            placeholder="Search members"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button className="search-btn" type="submit">
+            Search
+          </button>
+        </div>
+
+        <button
+          className="search-show-all-btn"
+          type="button"
+          onClick={getAllData}
+        >
           Show All
         </button>
       </form>

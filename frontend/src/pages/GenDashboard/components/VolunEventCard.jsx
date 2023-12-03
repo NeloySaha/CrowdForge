@@ -87,19 +87,20 @@ export const VolunEventCard = ({
           <label for="task">
             <p>{taskData.task}</p>
             <p>Money Received - TK{taskData.money}</p>
-            {taskDone && (
-              <div>
-                <button
-                  className="task-btn-complete"
-                  onClick={() => {
-                    console.log("Task Completed");
-                  }}
-                >
-                  Confirm
-                </button>
-              </div>
-            )}
           </label>
+
+          {taskDone && (
+            <div>
+              <button
+                className="task-btn-complete"
+                onClick={() => {
+                  console.log("Task Completed");
+                }}
+              >
+                Confirm
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
