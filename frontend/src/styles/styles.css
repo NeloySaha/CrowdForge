@@ -740,7 +740,8 @@ nav {
   font-family: inherit;
   font-size: 1.4rem;
   letter-spacing: 0.75px;
-  border-radius: 9px;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
 }
 
 .search-btn,
@@ -764,7 +765,7 @@ nav {
 
 .search-btn {
   width: 11.2rem;
-  margin-left: -11.2rem;
+  /* margin-left: -11.2rem; */
   background-color: #3395ff;
   border-top-right-radius: 9px;
   border-bottom-right-radius: 9px;
