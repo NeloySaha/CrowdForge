@@ -676,7 +676,7 @@ app.post("/updateBalance", (req, res) => {
 // only funded club events
 app.get("/fundedEvents/:club", (req, res) => {
   const { club } = req.params;
-  const sql = "Select * from event WHERE club_name=? and money_received > 0";
+  const sql = "Select * from event WHERE club_name=?";
 
   db.query(sql, [club], (err, data) => {
     if (err) return res.json(err);

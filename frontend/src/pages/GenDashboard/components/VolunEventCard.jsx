@@ -31,6 +31,7 @@ export const VolunEventCard = ({
         }
       );
 
+      console.log(res.data[0]);
       setTaskData(res.data[0]);
     } catch (err) {
       console.log(err);
@@ -94,8 +95,8 @@ export const VolunEventCard = ({
         </li>
       </ul>
 
-      {Object.keys(taskData).length > 0 &&
-        (taskData.money > 0 ? (
+      {taskData.task !== null ? (
+        taskData.money > 0 ? (
           <div className="vol-task-checkbox">
             <h2>Task Assigned</h2>
             <div>
@@ -124,14 +125,25 @@ export const VolunEventCard = ({
           <div className="vol-task-checkbox">
             <h2>Task Assigned</h2>
             <div>
-              <input type="checkbox" id="scales" name="task" checked={true} />
-              <label for="task">
+              <input
+                type="checkbox"
+                id="scales"
+                name="task"
+                checked={true}
+                onChange={() => {}}
+              />
+              <label>
                 <p>{taskData.task}</p>
                 <p>Completed</p>
               </label>
             </div>
           </div>
-        ))}
+        )
+      ) : (
+        <div className="vol-task-checkbox">
+          <h2>No Tasks Assigned Yet</h2>
+        </div>
+      )}
     </div>
   );
 };
