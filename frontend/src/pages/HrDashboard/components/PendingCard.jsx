@@ -34,7 +34,7 @@ export const PendingCard = ({
         }
       );
 
-      successToast(res.data, 2000);
+      successToast(res.data, 500);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,

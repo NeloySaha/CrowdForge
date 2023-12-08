@@ -67,7 +67,7 @@ export const MonitorMemberCard = ({
         }
       );
 
-      successToast(res.data);
+      successToast(res.data, 500);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,
