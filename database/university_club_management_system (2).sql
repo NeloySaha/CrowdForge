@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2023 at 06:27 AM
+-- Generation Time: Dec 08, 2023 at 02:42 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,7 @@ CREATE TABLE `club` (
 --
 
 INSERT INTO `club` (`name`, `full_form`, `established_date`, `location`, `description`, `announcement_detail`, `announcement_title`) VALUES
-('BUCC', 'BRAC University Computer Club', '2014-10-21', 'ub81205', 'BRAC University Computer Club (BUCC) This club consists of a youthful team of passionate and hardworking Tech Enthusiast students. They strive to learn more about the advanced technologies of the 21st century. The club regularly offers workshops on web development, graphics designing, problem solving, and many other technological fields. To get the students engaging they organize contests on compe', 'We are cooking up a new event. Get ready to enjoy the december.🎉', '📢Hey there BUCC people'),
+('BUCC', 'BRAC University Computer Club', '2014-10-21', 'ub81205', 'BRAC University Computer Club (BUCC) This club consists of a youthful team of passionate and hardworking Tech Enthusiast students. They strive to learn more about the advanced technologies of the 21st century. The club regularly offers workshops on web development, graphics designing, problem solving, and many other technological fields. To get the students engaging they organize contests on compe', 'Detail part', 'Dummy Announcement'),
 ('BUCuC', 'BRAC University Cultural Club', '2014-10-21', 'ub20412', 'Welcome to the vibrant heartbeat of artistic expression and cultural celebration at BRAC University—the BRACU Cultural Club. Our diverse and dynamic community thrives on a fusion of traditions, music, dance, and creativity. Embrace the richness of cultural exchange as we unite students with a passion for the arts. From traditional performances to modern interpretations, join us in fostering a tape', NULL, NULL),
 ('BUEDF', 'BRAC University Entrepreneurship Development Forum', '2013-01-01', 'ub50506', 'BRAC University Entrepreneurship Development Forum (EDF) was started in January 2004. EDF is the platform for Future Leaders of BRAC University. Entrepreneurship Development Forum (EDF) has been established to unearth the immense hidden potentiality and leadership of the students. The intention behind all the activities of this club is to help its members to sense the enormous latent force they possess. Moreover, complying with the modern day corporate ambiance, team work is emphasized here prior to everything so that the members can feel the bond in the long term when they will enter into the real corporate activities.', NULL, NULL),
 ('BUFC', 'BRAC University Film Club', '2014-10-21', 'ub50605', 'Lights, camera, action! Welcome to the BRAC University Film Club, where storytelling comes to life on the big screen. Dive into the magic of cinema with fellow enthusiasts who share a passion for the art of filmmaking. From scriptwriting to editing, our club is a creative haven for aspiring directors, actors, and cinematographers. Join us for screenings, discussions, and hands-on projects that nurture your cinematic flair. Whether you\'re an aficionado or a novice, we\'re here to celebrate the diverse world of film and cultivate the next generation of storytellers. Immerse yourself in the reel world at the BRACU Film Club—where every frame tells a story.', NULL, NULL),
@@ -97,8 +97,8 @@ CREATE TABLE `event` (
 INSERT INTO `event` (`event_id`, `name`, `cost`, `date`, `capacity`, `venue`, `club_name`, `money_received`, `restriction`) VALUES
 (1, 'Robo Carnival', 10000, '2023-12-15', 1000, 'UB6', 'ROBU', 2200, 0),
 (2, 'Lets Dance', 5000, '2023-12-21', 200, 'UB3', 'BULDF', 4200, 1),
-(3, 'BRAC CSE Job Fest', 20000, '2023-12-18', 1000, 'UB2', 'BUCC', 10400, 0),
-(4, 'BUCC Freshers Enquee', 15000, '2023-12-10', 500, 'UB2', 'BUCC', 11600, 1),
+(3, 'BRAC CSE Job Fest', 20000, '2023-12-18', 1000, 'UB2', 'BUCC', 12400, 0),
+(4, 'BUCC Freshers Enquee', 15000, '2023-12-10', 500, 'UB2', 'BUCC', 11620, 1),
 (5, 'BUCC Winter vibes', 15000, '2023-12-31', 900, 'UB2', 'BUCC', 12000, 1),
 (6, 'BUCC Dhumaachale', 10000, '2023-11-16', 200, 'UB9', 'BUCC', 0, 0),
 (7, 'BUCC Fair', 10000, '2023-11-17', 200, 'UB9', 'BUCC', 0, 0),
@@ -145,7 +145,8 @@ CREATE TABLE `incoming_event` (
 --
 
 INSERT INTO `incoming_event` (`event_id`, `name`, `cost`, `date`, `capacity`, `venue`, `club_name`, `restriction`) VALUES
-(3, 'raffle Upkeep', 123, '2023-12-06', 1, 'asd', 'BUCC', 0);
+(3, 'raffle Upkeep', 123, '2023-12-06', 1, 'asd', 'BUCC', 0),
+(4, 'Event1', 19000, '2023-12-13', 1000, 'Ub6', 'BUCC', 0);
 
 -- --------------------------------------------------------
 
@@ -162,15 +163,16 @@ CREATE TABLE `incoming_request` (
   `gender` varchar(100) NOT NULL,
   `club` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `contact_no` varchar(100) NOT NULL
+  `contact_no` varchar(100) NOT NULL,
+  `incoming_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `incoming_request`
 --
 
-INSERT INTO `incoming_request` (`name`, `designation`, `email`, `dob`, `department`, `gender`, `club`, `password`, `contact_no`) VALUES
-('Moju Haque', 'Member', 'moju@gmail.com', '2023-11-02', 'CSE', 'Male', 'BUCC', '12345', '01929121212');
+INSERT INTO `incoming_request` (`name`, `designation`, `email`, `dob`, `department`, `gender`, `club`, `password`, `contact_no`, `incoming_time`) VALUES
+('Neloy Saha', 'Member', 'neloy.saha456@gmail.com', '2023-12-03', 'PHY', 'Male', 'BUCC', '12345', '01929101010', '2023-12-08 13:33:16');
 
 -- --------------------------------------------------------
 
@@ -200,12 +202,12 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`name`, `designation`, `email`, `dob`, `department`, `gender`, `club`, `password`, `contact_no`, `rating`, `evaluation`, `bank_account`, `money`) VALUES
 ('Umme Abira ', 'hr', 'abira@gmail.com', '2023-11-10', 'CSE', 'Female', 'BUCC', '12345', '01920111111', 0, NULL, NULL, NULL),
-('Aboni Rounak', 'advisor', 'aboni@gmail.com', '2003-11-05', 'CSE', 'female', 'BUCC', '12345', '01733433100', 3, NULL, 987654321, 88800),
-('Aftab', 'general', 'aftab@gmail.com', '2023-11-07', 'CSE', 'Others', 'BUCC', 'aftab123', '01232311212', 7, NULL, NULL, NULL),
+('Aboni Rounak', 'advisor', 'aboni@gmail.com', '2003-11-05', 'CSE', 'female', 'BUCC', '12345', '01733433100', 3, NULL, 987654321, 86780),
 ('FlexedPanda', 'advisor', 'flexed@gmail.com', '2000-04-19', 'CSE', 'male', 'ROBU', '12345', '1987634', 0, NULL, 1234567890, 100000),
-('Keka Ferdous', 'general', 'keka@gmail.com', '2023-11-18', 'CSE', 'Female', 'BUCC', '12345', '01232222222', 3, NULL, NULL, NULL),
-('Neloy Kumar Saha', 'treasurer', 'neloy@gmail.com', '2023-11-03', 'CSE', 'Male', 'BUCC', 'neloy123', '1928821212', 5, NULL, 1234567890, 29700),
+('Keka Ferdous', 'general', 'keka@gmail.com', '2023-11-18', 'CSE', 'Female', 'BUCC', '12345', '01232222222', 5, NULL, NULL, NULL),
+('Neloy Kumar Saha', 'treasurer', 'neloy@gmail.com', '2023-11-03', 'CSE', 'Male', 'BUCC', 'neloy123', '1928821212', 5, NULL, 1234567890, 25720),
 ('Niaz', 'president', 'niaznafi@gmail.com', '1999-08-10', 'CSE', 'male', 'BUCC', '12345', '01733433100', 10, NULL, NULL, NULL),
+('Tayeba Rounak Karim', 'hr', 'nksaha12@gmail.com', '2002-05-09', 'MNS', 'Female', 'BUCC', '12345', '01020101010', 3, NULL, NULL, NULL),
 ('Vader', 'general', 'president@gmail.com', '2015-08-05', 'CSE', 'male', 'BUFC', '12345', '1994225024', 0, NULL, NULL, NULL),
 ('Sazin Haque', 'general', 'sazin@gmail.com', '2023-11-09', 'CSE', 'Male', 'BUCC', '12345', '01829191919', 0, NULL, NULL, NULL);
 
@@ -239,15 +241,17 @@ CREATE TABLE `promotion_request` (
   `email` varchar(100) NOT NULL,
   `club` varchar(100) NOT NULL,
   `designation` varchar(100) NOT NULL,
-  `promoted_designation` varchar(100) NOT NULL
+  `promoted_designation` varchar(100) NOT NULL,
+  `prom_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `promotion_request`
 --
 
-INSERT INTO `promotion_request` (`name`, `email`, `club`, `designation`, `promoted_designation`) VALUES
-('Aftab', 'aftab@gmail.com', 'BUCC', 'general', 'hr');
+INSERT INTO `promotion_request` (`name`, `email`, `club`, `designation`, `promoted_designation`, `prom_time`) VALUES
+('Keka Ferdous', 'keka@gmail.com', 'BUCC', 'general', 'treasurer', '2023-12-08 13:35:40'),
+('Sazin Haque', 'sazin@gmail.com', 'BUCC', 'general', 'hr', '2023-12-08 13:35:46');
 
 -- --------------------------------------------------------
 
@@ -291,10 +295,7 @@ CREATE TABLE `volunteer` (
 --
 
 INSERT INTO `volunteer` (`club`, `email`, `event_id`, `task`, `money`) VALUES
-('BUCC', 'aftab@gmail.com', 3, NULL, NULL),
-('BUCC', 'aftab@gmail.com', 4, 'Find a Sponsor', 1100),
-('BUCC', 'aftab@gmail.com', 5, 'Find some stalls', 1000),
-('BUCC', 'keka@gmail.com', 5, 'Collect Balloons', 300),
+('BUCC', 'keka@gmail.com', 5, 'Collect Balloons', 0),
 ('BUCC', 'sazin@gmail.com', 5, 'Clean the Campus', 900);
 
 --
@@ -390,7 +391,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `incoming_event`
 --
 ALTER TABLE `incoming_event`
-  MODIFY `event_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `event_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -425,8 +426,8 @@ ALTER TABLE `participate`
 -- Constraints for table `volunteer`
 --
 ALTER TABLE `volunteer`
-  ADD CONSTRAINT `vol_event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`),
-  ADD CONSTRAINT `volunteer_ibfk_1` FOREIGN KEY (`club`,`email`) REFERENCES `member` (`club`, `email`);
+  ADD CONSTRAINT `vol_event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `volunteer_ibfk_1` FOREIGN KEY (`club`,`email`) REFERENCES `member` (`club`, `email`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

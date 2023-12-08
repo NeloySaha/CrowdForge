@@ -286,7 +286,8 @@ app.post("/volunteer", (req, res) => {
 // pending club join request
 app.get("/pendingReq/:club", (req, res) => {
   const { club } = req.params;
-  const sql = "Select * from incoming_request where club=?";
+  const sql =
+    "Select * from incoming_request where club=? ORDER by incoming_time DESC";
 
   db.query(sql, [club], (err, data) => {
     if (err) return res.json(err);
@@ -568,7 +569,8 @@ app.post("/presidentPromote", (req, res) => {
 app.get("/promReq/:club", (req, res) => {
   const { club } = req.params;
 
-  const sql = "SELECT * FROM promotion_request where club=?";
+  const sql =
+    "SELECT * FROM promotion_request where club=? ORDER by prom_time DESC";
 
   db.query(sql, [club], (err, data) => {
     if (err) return res.json(err);
