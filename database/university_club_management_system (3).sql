@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2023 at 02:42 PM
+-- Generation Time: Dec 08, 2023 at 03:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -107,25 +107,6 @@ INSERT INTO `event` (`event_id`, `name`, `cost`, `date`, `capacity`, `venue`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `funding_request`
---
-
-CREATE TABLE `funding_request` (
-  `Sponsor_email` varchar(40) NOT NULL,
-  `Event` varchar(40) NOT NULL,
-  `Amount` int(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `funding_request`
---
-
-INSERT INTO `funding_request` (`Sponsor_email`, `Event`, `Amount`) VALUES
-('hasanul@xybank.org', 'BRAC CSE Job Fest', 10000);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `incoming_event`
 --
 
@@ -146,7 +127,8 @@ CREATE TABLE `incoming_event` (
 
 INSERT INTO `incoming_event` (`event_id`, `name`, `cost`, `date`, `capacity`, `venue`, `club_name`, `restriction`) VALUES
 (3, 'raffle Upkeep', 123, '2023-12-06', 1, 'asd', 'BUCC', 0),
-(4, 'Event1', 19000, '2023-12-13', 1000, 'Ub6', 'BUCC', 0);
+(4, 'Event1', 19000, '2023-12-13', 1000, 'Ub6', 'BUCC', 0),
+(5, 'Avengers', 10000, '2023-12-29', 100, 'New Campus', 'BUCC', 1);
 
 -- --------------------------------------------------------
 
@@ -256,29 +238,6 @@ INSERT INTO `promotion_request` (`name`, `email`, `club`, `designation`, `promot
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sponsor`
---
-
-CREATE TABLE `sponsor` (
-  `Email` varchar(40) NOT NULL,
-  `Pin` int(11) NOT NULL,
-  `name` varchar(40) NOT NULL,
-  `Designation` varchar(40) NOT NULL,
-  `funding` int(11) NOT NULL,
-  `advisor_account` int(11) NOT NULL,
-  `oca_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `sponsor`
---
-
-INSERT INTO `sponsor` (`Email`, `Pin`, `name`, `Designation`, `funding`, `advisor_account`, `oca_id`) VALUES
-('hasanul@xybank.org', 12345, 'XY Bank', 'sponsor', 90000, 12345678, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `volunteer`
 --
 
@@ -321,13 +280,6 @@ ALTER TABLE `event`
   ADD PRIMARY KEY (`event_id`);
 
 --
--- Indexes for table `funding_request`
---
-ALTER TABLE `funding_request`
-  ADD PRIMARY KEY (`Event`,`Sponsor_email`),
-  ADD KEY `Test` (`Sponsor_email`);
-
---
 -- Indexes for table `incoming_event`
 --
 ALTER TABLE `incoming_event`
@@ -363,14 +315,6 @@ ALTER TABLE `promotion_request`
   ADD KEY `club` (`club`);
 
 --
--- Indexes for table `sponsor`
---
-ALTER TABLE `sponsor`
-  ADD PRIMARY KEY (`Email`),
-  ADD KEY `oca_id` (`oca_id`),
-  ADD KEY `advisor_account` (`advisor_account`);
-
---
 -- Indexes for table `volunteer`
 --
 ALTER TABLE `volunteer`
@@ -391,17 +335,11 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `incoming_event`
 --
 ALTER TABLE `incoming_event`
-  MODIFY `event_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `event_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `funding_request`
---
-ALTER TABLE `funding_request`
-  ADD CONSTRAINT `Test` FOREIGN KEY (`Sponsor_email`) REFERENCES `sponsor` (`Email`);
 
 --
 -- Constraints for table `incoming_event`
