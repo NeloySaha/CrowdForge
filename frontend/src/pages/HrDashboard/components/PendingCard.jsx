@@ -34,12 +34,23 @@ export const PendingCard = ({
         }
       );
 
-      successToast(res.data);
-      getPendingReqData();
+      successToast(res.data, 2000);
+
+      const emailRes = await axios.post(
+        `${import.meta.env.VITE_API_URL}/sendEmail`,
+        {
+          email,
+          msg: `🎉Congratulations from ${club} family! ${name}, your join request is approved.🎉`,
+        }
+      );
+
+      successToast(emailRes.data);
     } catch (err) {
       console.log(err);
 
       failedToast(err.response.data);
+    } finally {
+      getPendingReqData();
     }
   };
 

@@ -20,7 +20,7 @@ export const MonitorMemberCard = ({
   const [curRating, setCurRating] = useState(+rating);
   const [showConfirmBtn, setShowConfirmBtn] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-  const [promoted_designation, setPromotedDesignation] = useState("executive");
+  const [promoted_designation, setPromotedDesignation] = useState("treasurer");
 
   const handleChange = (e) => {
     setPromotedDesignation(e.target.value);
@@ -68,6 +68,16 @@ export const MonitorMemberCard = ({
       );
 
       successToast(res.data);
+
+      const emailRes = await axios.post(
+        `${import.meta.env.VITE_API_URL}/sendEmail`,
+        {
+          email,
+          msg: `${name}, You have been kicked out from ${club} due to unavoidable reasons.`,
+        }
+      );
+
+      successToast(emailRes.data);
     } catch (err) {
       console.log(err);
       failedToast(err.response.data);
@@ -148,9 +158,8 @@ export const MonitorMemberCard = ({
         <div className="monitor-btn-container">
           <div className="monitor-selector">
             <select name="promoted_designation" onChange={handleChange}>
-              <option value="executive">Executive</option>
-              <option value="hr">HR</option>
               <option value="treasurer">Treasurer</option>
+              <option value="hr">HR</option>
             </select>
           </div>
 

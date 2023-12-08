@@ -22,6 +22,20 @@ export const PromoCard = ({
       );
 
       successToast(res.data);
+
+      const emailRes = await axios.post(
+        `${import.meta.env.VITE_API_URL}/sendEmail`,
+        {
+          email,
+          msg: `🎉Congratulations from ${
+            loggedUser.club
+          } family! ${name}, You have been promoted to ${promoted_designation.toUpperCase()} in ${
+            loggedUser.club
+          }🎉`,
+        }
+      );
+
+      successToast(emailRes.data);
     } catch (err) {
       console.log(err);
 

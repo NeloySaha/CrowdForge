@@ -37,6 +37,26 @@ export const VolunEventCard = ({
     }
   };
 
+  const completeTask = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/completeTask`,
+        {
+          club: loggedUser.club,
+          email: loggedUser.email,
+          event_id,
+        }
+      );
+
+      successToast(res.data);
+    } catch (err) {
+      failedToast(err?.response.data);
+      console.log(err);
+    } finally {
+      getTaskData();
+    }
+  };
+
   const formattedDate = new Date(date).toLocaleString("en-US", {
     month: "short",
     day: "numeric",
@@ -74,35 +94,44 @@ export const VolunEventCard = ({
         </li>
       </ul>
 
-      <div className="vol-task-checkbox">
-        <h2>Task Assigned</h2>
-        <div>
-          <input
-            type="checkbox"
-            id="scales"
-            name="task"
-            onChange={() => setTaskDone((prev) => !prev)}
-            checked={taskDone}
-          />
-          <label for="task">
-            <p>{taskData.task}</p>
-            <p>Money Received - TK{taskData.money}</p>
-          </label>
-
-          {taskDone && (
+      {Object.keys(taskData).length > 0 &&
+        (taskData.money > 0 ? (
+          <div className="vol-task-checkbox">
+            <h2>Task Assigned</h2>
             <div>
-              <button
-                className="task-btn-complete"
-                onClick={() => {
-                  console.log("Task Completed");
-                }}
-              >
-                Confirm
-              </button>
+              <input
+                type="checkbox"
+                id="scales"
+                name="task"
+                onChange={() => setTaskDone((prev) => !prev)}
+                checked={taskDone}
+              />
+              <label for="task">
+                <p>{taskData.task}</p>
+                <p>Money Received - TK{taskData.money}</p>
+              </label>
+
+              {taskDone && (
+                <div>
+                  <button className="task-btn-complete" onClick={completeTask}>
+                    Confirm
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
+          </div>
+        ) : (
+          <div className="vol-task-checkbox">
+            <h2>Task Assigned</h2>
+            <div>
+              <input type="checkbox" id="scales" name="task" checked={true} />
+              <label for="task">
+                <p>{taskData.task}</p>
+                <p>Completed</p>
+              </label>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };

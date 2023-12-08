@@ -18,7 +18,7 @@ export const PreMonitorCard = ({
   getAllData,
 }) => {
   const [dropDown, setDropDown] = useState(false);
-  const [promoted_designation, setPromotedDesignation] = useState("executive");
+  const [promoted_designation, setPromotedDesignation] = useState("treasurer");
 
   const handleChange = (e) => {
     setPromotedDesignation(e.target.value);
@@ -35,6 +35,16 @@ export const PreMonitorCard = ({
         }
       );
       successToast(res.data);
+
+      const emailRes = await axios.post(
+        `${import.meta.env.VITE_API_URL}/sendEmail`,
+        {
+          email,
+          msg: `🎉Congratulations from ${club} family! ${name}, You have been promoted to ${promoted_designation.toUpperCase()} in ${club}🎉`,
+        }
+      );
+
+      successToast(emailRes.data);
     } catch (err) {
       console.log(err);
       failedToast(err.response.data);
@@ -55,6 +65,16 @@ export const PreMonitorCard = ({
 
       console.log(res.data);
       successToast(res.data);
+
+      const emailRes = await axios.post(
+        `${import.meta.env.VITE_API_URL}/sendEmail`,
+        {
+          email,
+          msg: `${name}, You have been kicked out from ${club} due to unavoidable reasons.`,
+        }
+      );
+
+      successToast(emailRes.data);
     } catch (err) {
       console.log(err);
       failedToast(err.response.data);
@@ -95,10 +115,8 @@ export const PreMonitorCard = ({
         <div className="monitor-btn-container">
           <div className="monitor-selector">
             <select name="promoted_designation" onChange={handleChange}>
-              <option value="executive">Executive</option>
-
-              <option value="hr">HR</option>
               <option value="treasurer">Treasurer</option>
+              <option value="hr">HR</option>
             </select>
           </div>
 

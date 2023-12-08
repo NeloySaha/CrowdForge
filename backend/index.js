@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 const env = require("dotenv").config();
 
 const app = express();
@@ -15,10 +16,38 @@ const configuration = {
   charset: "utf8mb4",
 };
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 const db = mysql.createConnection(configuration);
 
 app.get("/", (req, res) => {
   return res.send("Hello From University Backend");
+});
+
+// sending email
+app.post("/sendEmail", (req, res) => {
+  const { msg, email } = req.body;
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "Club Join Request Accepted",
+    text: msg,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.send("Couldn't send the email!");
+    }
+
+    return res.send("Email sent successfully");
+  });
 });
 
 // club data
@@ -144,6 +173,18 @@ app.get("/clubMembers/:club", (req, res) => {
 // //GENERAL///
 // ////////////
 // ////////////
+
+app.post("/completeTask", (req, res) => {
+  const { club, event_id, email } = req.body;
+  const sql =
+    "UPDATE volunteer SET money = 0 WHERE club = ? AND email = ? AND event_id = ?";
+
+  db.query(sql, [club, email, event_id], (err, data) => {
+    if (err) return res.send("Couldn't complete the task!");
+
+    return res.send("Successfully completed the task🎉🎉🎉🎉");
+  });
+});
 
 app.post("/assignedEventTask", (req, res) => {
   const { club, email, event_id } = req.body;

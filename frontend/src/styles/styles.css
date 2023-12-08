@@ -796,6 +796,8 @@ nav {
   color: #222;
   justify-items: center;
   width: 100%;
+  border-top-right-radius: 9px;
+  border-top-left-radius: 9px;
 }
 
 .pending-card-container {
@@ -1226,6 +1228,8 @@ nav {
   color: #222;
   justify-items: center;
   width: 100%;
+  border-top-right-radius: 9px;
+  border-top-left-radius: 9px;
 }
 
 .vol-card-container {
