@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2023 at 03:32 PM
+-- Generation Time: Dec 08, 2023 at 04:34 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -232,7 +232,6 @@ CREATE TABLE `promotion_request` (
 --
 
 INSERT INTO `promotion_request` (`name`, `email`, `club`, `designation`, `promoted_designation`, `prom_time`) VALUES
-('Keka Ferdous', 'keka@gmail.com', 'BUCC', 'general', 'treasurer', '2023-12-08 13:35:40'),
 ('Sazin Haque', 'sazin@gmail.com', 'BUCC', 'general', 'hr', '2023-12-08 13:35:46');
 
 -- --------------------------------------------------------
@@ -297,7 +296,8 @@ ALTER TABLE `incoming_request`
 --
 ALTER TABLE `member`
   ADD PRIMARY KEY (`email`,`club`),
-  ADD KEY `fk_member_club` (`club`);
+  ADD KEY `fk_member_club` (`club`),
+  ADD KEY `department` (`department`);
 
 --
 -- Indexes for table `participate`
@@ -351,7 +351,8 @@ ALTER TABLE `incoming_event`
 -- Constraints for table `member`
 --
 ALTER TABLE `member`
-  ADD CONSTRAINT `fk_member_club` FOREIGN KEY (`club`) REFERENCES `club` (`name`);
+  ADD CONSTRAINT `fk_member_club` FOREIGN KEY (`club`) REFERENCES `club` (`name`),
+  ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`department`) REFERENCES `department` (`name`);
 
 --
 -- Constraints for table `participate`
@@ -359,6 +360,13 @@ ALTER TABLE `member`
 ALTER TABLE `participate`
   ADD CONSTRAINT `part_event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`),
   ADD CONSTRAINT `participate_ibfk_1` FOREIGN KEY (`club`,`email`) REFERENCES `member` (`club`, `email`);
+
+--
+-- Constraints for table `promotion_request`
+--
+ALTER TABLE `promotion_request`
+  ADD CONSTRAINT `promotion_request_ibfk_1` FOREIGN KEY (`email`) REFERENCES `member` (`email`),
+  ADD CONSTRAINT `promotion_request_ibfk_2` FOREIGN KEY (`club`) REFERENCES `member` (`club`);
 
 --
 -- Constraints for table `volunteer`
