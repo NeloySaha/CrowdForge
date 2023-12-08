@@ -491,32 +491,6 @@ app.get("/showEvents/:club", (req, res) => {
   });
 });
 
-app.post("/createEvent", (req, res) => {
-  const {
-    name,
-    cost,
-    date,
-    capacity,
-    venue,
-    club_name,
-    money_received,
-    restriction,
-  } = req.body;
-
-  const sql =
-    "Insert into event (name,cost,date,capacity,venue,club_name,money_received,restriction) Values (?,?,?,?,?,?,?,?,?)";
-
-  db.query(
-    sql,
-    [name, cost, date, capacity, venue, club_name, money_received, restriction],
-    (err, data) => {
-      if (err) return res.send("Couldn't declare event");
-
-      return res.send("🎉Event created successfully");
-    }
-  );
-});
-
 app.get("/clubEvents/:club", (req, res) => {
   const { club } = req.params;
   const sql = "Select * from event where club_name = ?";
