@@ -42,6 +42,8 @@ export const Monitor = (props) => {
       successToast: props.successToast,
       failedToast: props.failedToast,
       getMemberData: getAllData,
+      getMemData: props.getMemData,
+      getVolunData: props.getVolunData,
     };
     return <MonitorMemberCard key={obj.email} {...newProps} />;
   });

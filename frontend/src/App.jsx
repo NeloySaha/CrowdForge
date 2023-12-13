@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,13 +13,41 @@ import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
 import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
 import { PreDashboard } from "./pages/PresidentDashboard/PreDashboard";
 import { AdvisorDashboard } from "./pages/AdvisorDashboard/AdvisorDashboard";
-import { FundModal } from "./modals/FundModal";
 import { TreasurerDashboard } from "./pages/TreasurerDashboard/TreasurerDashboard";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
   );
+
+  // For club details section
+  const [memData, setMemData] = useState(0);
+  const [volunteerData, setVolunteerData] = useState([]);
+
+  const getMemData = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/clubMemberCount/${loggedUser.club}`
+      );
+
+      setMemData(res.data[0].totalCount);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getVolunData = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/eventWiseVol/${loggedUser.club}`
+      );
+
+      console.log(res.data);
+      setVolunteerData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const toastPrimaryCategories = {
     position: "bottom-center",
@@ -61,6 +90,10 @@ function App() {
     setLoggedUser,
     failedToast,
     successToast,
+    memData,
+    volunteerData,
+    getMemData,
+    getVolunData,
   };
 
   return (

@@ -16,6 +16,8 @@ export const MonitorMemberCard = ({
   successToast,
   failedToast,
   getMemberData,
+  getMemData,
+  getVolunData,
 }) => {
   const [curRating, setCurRating] = useState(+rating);
   const [showConfirmBtn, setShowConfirmBtn] = useState(false);
@@ -67,7 +69,7 @@ export const MonitorMemberCard = ({
         }
       );
 
-      successToast(res.data, 500);
+      successToast(res.data);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,
@@ -83,6 +85,8 @@ export const MonitorMemberCard = ({
       failedToast(err.response.data);
     } finally {
       getMemberData();
+      getMemData();
+      getVolunData();
     }
   };
 

@@ -49,6 +49,8 @@ export const PreMonitor = (props) => {
       ...obj,
       successToast: props.successToast,
       failedToast: props.failedToast,
+      getMemData: props.getMemData,
+      getVolunData: props.getVolunData,
       getAllData,
     };
     return <PreMonitorCard key={obj.email} {...newProps} />;

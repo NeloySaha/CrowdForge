@@ -16,6 +16,8 @@ export const PreMonitorCard = ({
   successToast,
   failedToast,
   getAllData,
+  getMemData,
+  getVolunData,
 }) => {
   const [dropDown, setDropDown] = useState(false);
   const [promoted_designation, setPromotedDesignation] = useState("treasurer");
@@ -34,7 +36,7 @@ export const PreMonitorCard = ({
           club,
         }
       );
-      successToast(res.data, 500);
+      successToast(res.data);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,
@@ -64,7 +66,7 @@ export const PreMonitorCard = ({
       );
 
       console.log(res.data);
-      successToast(res.data, 500);
+      successToast(res.data);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,
@@ -80,6 +82,8 @@ export const PreMonitorCard = ({
       failedToast(err.response.data);
     } finally {
       getAllData();
+      getMemData();
+      getVolunData();
     }
   };
 

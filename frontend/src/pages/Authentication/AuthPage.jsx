@@ -11,7 +11,9 @@ export const AuthPage = (props) => {
   return (
     <section className="section-auth">
       <div className="auth-container">
-        <h1 className="auth-heading">Welcome to CrowdForge</h1>
+        <div className="auth-heading">
+          <h1>Welcome to CrowdForge</h1>
+        </div>
 
         <div className="auth">
           <ul className="auth-nav">

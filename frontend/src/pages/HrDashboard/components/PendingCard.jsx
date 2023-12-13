@@ -3,6 +3,7 @@ import React from "react";
 
 export const PendingCard = ({
   loggedUser,
+  getMemData,
   pendingObj,
   failedToast,
   successToast,
@@ -34,7 +35,7 @@ export const PendingCard = ({
         }
       );
 
-      successToast(res.data, 500);
+      successToast(res.data);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,
@@ -51,6 +52,7 @@ export const PendingCard = ({
       failedToast(err.response.data);
     } finally {
       getPendingReqData();
+      getMemData();
     }
   };
 
@@ -65,10 +67,11 @@ export const PendingCard = ({
       );
 
       successToast(res.data);
-      getPendingReqData();
     } catch (err) {
       console.log(err);
       failedToast(err.response.data);
+    } finally {
+      getPendingReqData();
     }
   };
 

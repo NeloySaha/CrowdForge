@@ -36,7 +36,7 @@ app.post("/sendEmail", (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL,
-    to: email,
+    to: "neloy.saha456@gmail.com",
     subject: "CrowdForge Status Update",
     text: msg,
   };
@@ -369,9 +369,9 @@ app.get("/hrMonitor/:club", (req, res) => {
 // monitoring search
 app.post("/hrSearch", (req, res) => {
   const { query, club } = req.body;
-  const sql = `SELECT * FROM member WHERE designation = 'general' AND club = ? AND name LIKE '%${query}%'`;
+  const sql = `SELECT * FROM member WHERE designation = 'general' AND club = ? AND name REGEXP ?`;
 
-  db.query(sql, [club], (err, data) => {
+  db.query(sql, [club, query], (err, data) => {
     if (err) return res.json(err);
 
     return res.json(data);
@@ -517,9 +517,9 @@ app.post("/clubMembers", (req, res) => {
 // president search
 app.post("/presidentSearch", (req, res) => {
   const { club, email, query } = req.body;
-  const sql = `Select * from member WHERE club=? and email!= ? and designation!='advisor' and name LIKE '%${query}%'`;
+  const sql = `Select * from member WHERE club=? and email!= ? and designation!='advisor' AND name REGEXP ?`;
 
-  db.query(sql, [club, email], (err, data) => {
+  db.query(sql, [club, email, query], (err, data) => {
     if (err) return res.json(err);
 
     return res.json(data);

@@ -21,7 +21,7 @@ export const PromoCard = ({
         }
       );
 
-      successToast(res.data, 500);
+      successToast(res.data);
 
       const emailRes = await axios.post(
         `${import.meta.env.VITE_API_URL}/sendEmail`,
@@ -39,7 +39,7 @@ export const PromoCard = ({
     } catch (err) {
       console.log(err);
 
-      // failedToast(err.response.data);
+      failedToast(err.response.data);
     } finally {
       getPendingReqData();
     }
