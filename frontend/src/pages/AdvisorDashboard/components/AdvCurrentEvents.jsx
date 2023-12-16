@@ -12,7 +12,6 @@ export const AdvCurrentEvents = (props) => {
         `${import.meta.env.VITE_API_URL}/showEvents/${club}`
       );
 
-      console.log(res.data);
       setEventData(res.data);
     } catch (err) {
       console.log(err);
