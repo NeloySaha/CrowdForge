@@ -14,3 +14,5 @@ export const AdvisorDashboard = (props) => {
     </section>
   );
 };
+
+export default AdvisorDashboard;

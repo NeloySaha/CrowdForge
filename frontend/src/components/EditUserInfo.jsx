@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { PropagateLoader } from "react-spinners";
 import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 import {
   IoEyeOffOutline,
   IoEyeOutline,
@@ -7,6 +9,7 @@ import {
   IoFemaleSharp,
   IoMaleFemaleSharp,
 } from "react-icons/io5";
+import { LineLoader } from "./LineLoader";
 
 export const EditUserInfo = ({
   failedToast,
@@ -29,6 +32,8 @@ export const EditUserInfo = ({
   const [showNewPass, setShowNewPass] = useState(false);
   const [deptDataHtml, setDeptDataHtml] = useState([]);
   const [editDisabled, setEditDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
 
   const radioCheckedColor = (col) => ({
     backgroundColor: col === editInfo.gender ? "#dbeafd" : "",
@@ -53,6 +58,8 @@ export const EditUserInfo = ({
       setEditInfo((prev) => ({ ...prev, department: res.data[0].name }));
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(true);
     }
   };
 
@@ -83,6 +90,8 @@ export const EditUserInfo = ({
     }
 
     try {
+      setEditDisabled(true);
+      setEditLoading(true);
       const res1 = await axios.post(
         `${import.meta.env.VITE_API_URL}/editProfile`,
         editInfo
@@ -115,6 +124,7 @@ export const EditUserInfo = ({
       });
 
       getDeptData();
+      setEditLoading(false);
     }
   };
 
@@ -130,13 +140,17 @@ export const EditUserInfo = ({
         <p>
           Your Department:<span>*</span>
         </p>
-        <select
-          name="department"
-          onChange={handleEdit}
-          value={editInfo.department}
-        >
-          {deptDataHtml}
-        </select>
+        {loading ? (
+          <select
+            name="department"
+            onChange={handleEdit}
+            value={editInfo.department}
+          >
+            {deptDataHtml}
+          </select>
+        ) : (
+          <LineLoader />
+        )}
       </div>
 
       <div className="auth-form--category">
@@ -306,7 +320,11 @@ export const EditUserInfo = ({
         disabled={editDisabled}
         className={editDisabled ? "login-btn-disabled" : "login-btn"}
       >
-        Confirm
+        {!editLoading ? (
+          "Confirm"
+        ) : (
+          <ScaleLoader color="#fff" size={10} height={16} />
+        )}
       </button>
     </form>
   );

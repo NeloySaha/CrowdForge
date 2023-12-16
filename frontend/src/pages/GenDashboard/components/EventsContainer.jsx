@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { EventCard } from "./EventCard";
+import { UpcomingEventCard } from "./UpcomingEventCard";
 import { ParticipatingEventCard } from "./ParticipatingEventCard";
 import { VolunEventCard } from "./VolunEventCard";
 import { Announcements } from "../../../components/Announcements";
+import { SectionLoader } from "../../../components/SectionLoader";
 
 export const EventsContainer = (props) => {
+  const [upEventLoading, setUpEventLoading] = useState(false);
+  const [parEventLoading, setParEventLoading] = useState(false);
+  const [volEventLoading, setVolEventLoading] = useState(false);
   const [upEventData, setUpEventData] = useState([]);
   const [parEventData, setParEventData] = useState([]);
   const [volunEventData, setVolunEventData] = useState([]);
@@ -14,6 +18,7 @@ export const EventsContainer = (props) => {
 
   const getUpcomingEventsData = async () => {
     try {
+      setUpEventLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/upcomingEvents/${email}`
       );
@@ -21,11 +26,14 @@ export const EventsContainer = (props) => {
       setUpEventData(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setUpEventLoading(false);
     }
   };
 
   const getParEventsData = async () => {
     try {
+      setParEventLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/participatingEvents/${email}`
       );
@@ -33,11 +41,14 @@ export const EventsContainer = (props) => {
       setParEventData(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setParEventLoading(false);
     }
   };
 
   const getVolunEventsData = async () => {
     try {
+      setVolEventLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/volunteerEvents/${email}`
       );
@@ -45,6 +56,8 @@ export const EventsContainer = (props) => {
       setVolunEventData(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setVolEventLoading(false);
     }
   };
 
@@ -60,7 +73,7 @@ export const EventsContainer = (props) => {
       event.club_name !== props.loggedUser.club ? (
       ""
     ) : (
-      <EventCard key={idx} {...newProps} />
+      <UpcomingEventCard key={idx} {...newProps} />
     );
   });
 
@@ -147,21 +160,33 @@ export const EventsContainer = (props) => {
       {curTab === "upcoming" && (
         <div className="events-container">
           <h1 className="section-heading">Upcoming Events</h1>
-          <div className="events">{upcomingEventCards}</div>
+          {upEventLoading ? (
+            <SectionLoader />
+          ) : (
+            <div className="events">{upcomingEventCards}</div>
+          )}
         </div>
       )}
 
       {curTab === "participate" && (
         <div className="events-container">
           <h1 className="section-heading">Participating Events</h1>
-          <div className="events">{parEventCards}</div>
+          {parEventLoading ? (
+            <SectionLoader />
+          ) : (
+            <div className="events">{parEventCards}</div>
+          )}
         </div>
       )}
 
       {curTab === "volunteer" && (
         <div className="events-container">
           <h1 className="section-heading">Volunteering Events</h1>
-          <div className="events">{volunEventCards}</div>
+          {volEventLoading ? (
+            <SectionLoader />
+          ) : (
+            <div className="events">{volunEventCards}</div>
+          )}
         </div>
       )}
     </section>

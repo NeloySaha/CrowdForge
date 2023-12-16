@@ -1,10 +1,12 @@
 import React from "react";
 import { HrDashContainer } from "./components/HrDashContainer";
 
-export const HrDashboard = (props) => {
+const HrDashboard = (props) => {
   return (
     <div>
       <HrDashContainer {...props} />
     </div>
   );
 };
+
+export default HrDashboard;

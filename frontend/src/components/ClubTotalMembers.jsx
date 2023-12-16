@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { SectionLoader } from "./SectionLoader";
 
-export const ClubTotalMembers = ({ memData, getMemData }) => {
+export const ClubTotalMembers = ({ memData, getMemData, memLoading }) => {
   useEffect(() => {
     getMemData();
   }, []);
@@ -8,10 +9,14 @@ export const ClubTotalMembers = ({ memData, getMemData }) => {
   return (
     <section className="mem-count-section-container">
       <h1 className="section-heading">Club Details</h1>
-      <div className="total-gen-card">
-        <h1 className="gen-card-stat">{memData}</h1>
-        <p className="gen-card-title">Total Members</p>
-      </div>
+      {memLoading ? (
+        <SectionLoader />
+      ) : (
+        <div className="total-gen-card">
+          <h1 className="gen-card-stat">{memData}</h1>
+          <p className="gen-card-title">Total Members</p>
+        </div>
+      )}
     </section>
   );
 };

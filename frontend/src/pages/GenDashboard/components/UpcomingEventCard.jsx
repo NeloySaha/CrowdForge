@@ -3,7 +3,7 @@ import React from "react";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline } from "react-icons/io5";
 
-export const EventCard = ({
+export const UpcomingEventCard = ({
   capacity,
   club_name,
   cost,

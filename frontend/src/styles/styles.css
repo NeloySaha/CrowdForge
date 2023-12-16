@@ -256,6 +256,9 @@ body {
 
 .login-btn,
 .login-btn-disabled {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   border-radius: 9px;
   padding: 1.2rem 0;
@@ -331,7 +334,7 @@ body {
 
 nav {
   /* background-image: linear-gradient(to Right, #6ea6c0, #89cff0); */
-  background-color: #007aff;
+  background-color: #4da2ff;
   height: 7.6rem;
   display: flex;
   justify-content: space-between;
@@ -365,10 +368,6 @@ nav {
 }
 
 /* Details Section */
-
-.detail-section {
-  /* margin: 0 2.4rem 2.4rem 0; */
-}
 
 .detail-container {
   border-radius: 11px;
@@ -448,16 +447,6 @@ nav {
 }
 
 /* events */
-
-.event-section,
-.hr-middle-section,
-.pre-middle-section,
-.adv-middle-section,
-.tre-middle-section {
-  /* padding: 0 4.8rem 2.4rem 4.8rem; */
-  /* border-right: 1px solid #e0e0e0;
-  border-left: 1px solid #e0e0e0; */
-}
 
 .event-box {
   padding: 3.6rem;
@@ -565,13 +554,6 @@ nav {
 /* Other Clubs */
 .other-club-container {
   grid-column: 1/-1;
-}
-
-.hr-last-section,
-.mem-count-section-container {
-}
-
-.vol-count-section-container {
 }
 
 .other-club-section {
@@ -1069,7 +1051,7 @@ nav {
 .progress-container {
   min-width: 24rem;
   height: 25rem;
-  /* background-color: skyblue; */
+
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -1333,4 +1315,26 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.4rem;
+}
+
+/* loading page */
+.loader-container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.line-loading-container {
+  display: flex;
+  height: 4.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-loading-container {
+  height: 9.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

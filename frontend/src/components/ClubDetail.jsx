@@ -1,10 +1,7 @@
 import { useEffect } from "react";
+import { SectionLoader } from "./SectionLoader";
 
-export const ClubDetail = ({
-  volunteerData,
-
-  getVolunData,
-}) => {
+export const ClubDetail = ({ volunteerData, volLoading, getVolunData }) => {
   const volunCards = volunteerData.map((volunObj, idx) => {
     return (
       <div key={idx} className="total-gen-card">
@@ -23,7 +20,11 @@ export const ClubDetail = ({
       {volunCards.length > 0 && (
         <h1 className="section-heading gen-card-heading">Volunteers</h1>
       )}
-      <div className="vol-info-card-container"> {volunCards}</div>
+      {volLoading ? (
+        <SectionLoader />
+      ) : (
+        <div className="vol-info-card-container"> {volunCards}</div>
+      )}
     </section>
   );
 };

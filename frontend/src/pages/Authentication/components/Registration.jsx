@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 import {
   IoEyeOffOutline,
   IoEyeOutline,
@@ -7,6 +8,7 @@ import {
   IoFemaleSharp,
   IoMaleFemaleSharp,
 } from "react-icons/io5";
+import { LineLoader } from "../../../components/LineLoader";
 
 export const Registration = ({ failedToast, successToast }) => {
   const [regInfo, setRegInfo] = useState({
@@ -24,6 +26,9 @@ export const Registration = ({ failedToast, successToast }) => {
   const [clubDataHtml, setClubDataHtml] = useState([]);
   const [deptDataHtml, setDeptDataHtml] = useState([]);
   const [regDisabled, setRegDisabled] = useState(true);
+  const [clubLoaded, setClubLoaded] = useState(false);
+  const [deptLoaded, setDeptLoaded] = useState(false);
+  const [regLoading, setRegLoading] = useState(false);
 
   const radioCheckedColor = (col) => ({
     backgroundColor: col === regInfo.gender ? "#dbeafd" : "",
@@ -48,6 +53,8 @@ export const Registration = ({ failedToast, successToast }) => {
       setRegInfo((prev) => ({ ...prev, dept: res.data[0].name }));
     } catch (err) {
       console.log(err);
+    } finally {
+      setDeptLoaded(true);
     }
   };
 
@@ -65,6 +72,8 @@ export const Registration = ({ failedToast, successToast }) => {
       setRegInfo((prev) => ({ ...prev, clubName: res.data[0].name }));
     } catch (err) {
       console.log(err);
+    } finally {
+      setClubLoaded(true);
     }
   };
 
@@ -90,6 +99,8 @@ export const Registration = ({ failedToast, successToast }) => {
 
   const handleSignUp = async () => {
     try {
+      setRegDisabled(true);
+      setRegLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/register`,
         regInfo
@@ -116,6 +127,7 @@ export const Registration = ({ failedToast, successToast }) => {
 
       getClubData();
       getDeptData();
+      setRegLoading(false);
     }
   };
 
@@ -131,22 +143,30 @@ export const Registration = ({ failedToast, successToast }) => {
         <p>
           Choose your club:<span>*</span>
         </p>
-        <select
-          name="clubName"
-          onChange={handleRegInfo}
-          value={regInfo.clubName}
-        >
-          {clubDataHtml}
-        </select>
+        {clubLoaded ? (
+          <select
+            name="clubName"
+            onChange={handleRegInfo}
+            value={regInfo.clubName}
+          >
+            {clubDataHtml}
+          </select>
+        ) : (
+          <LineLoader />
+        )}
       </div>
 
       <div className="auth-form--category">
         <p>
           Your Department:<span>*</span>
         </p>
-        <select name="dept" onChange={handleRegInfo} value={regInfo.dept}>
-          {deptDataHtml}
-        </select>
+        {deptLoaded ? (
+          <select name="dept" onChange={handleRegInfo} value={regInfo.dept}>
+            {deptDataHtml}
+          </select>
+        ) : (
+          <LineLoader />
+        )}
       </div>
 
       <div className="auth-form--category">
@@ -303,7 +323,11 @@ export const Registration = ({ failedToast, successToast }) => {
         disabled={regDisabled}
         className={regDisabled ? "login-btn-disabled" : "login-btn"}
       >
-        Join Club
+        {!regLoading ? (
+          "Join Club"
+        ) : (
+          <ScaleLoader color="#fff" size={10} height={16} />
+        )}
       </button>
     </form>
   );

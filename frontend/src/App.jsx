@@ -2,23 +2,33 @@ import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/styles.css";
 
 import { Navbar } from "./components/Navbar";
 import { AuthPage } from "./pages/Authentication/AuthPage";
-import { GenDashboard } from "./pages/GenDashboard/GenDashboard";
-import { HrDashboard } from "./pages/HrDashboard/HrDashboard";
-import { PreDashboard } from "./pages/PresidentDashboard/PreDashboard";
-import { AdvisorDashboard } from "./pages/AdvisorDashboard/AdvisorDashboard";
-import { TreasurerDashboard } from "./pages/TreasurerDashboard/TreasurerDashboard";
+import { LoadingComponent } from "./components/LoadingComponent";
+
+const GenDashboard = lazy(() => import("./pages/GenDashboard/GenDashboard"));
+const HrDashboard = lazy(() => import("./pages/HrDashboard/HrDashboard"));
+const PreDashboard = lazy(() =>
+  import("./pages/PresidentDashboard/PreDashboard")
+);
+const AdvisorDashboard = lazy(() =>
+  import("./pages/AdvisorDashboard/AdvisorDashboard")
+);
+const TreasurerDashboard = lazy(() =>
+  import("./pages/TreasurerDashboard/TreasurerDashboard")
+);
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
   );
+  const [memLoading, setMemLoading] = useState(true);
+  const [volLoading, setVolLoading] = useState(true);
 
   // For club details section
   const [memData, setMemData] = useState(0);
@@ -26,6 +36,7 @@ function App() {
 
   const getMemData = async () => {
     try {
+      setMemLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/clubMemberCount/${loggedUser.club}`
       );
@@ -33,11 +44,14 @@ function App() {
       setMemData(res.data[0].totalCount);
     } catch (err) {
       console.log(err);
+    } finally {
+      setMemLoading(false);
     }
   };
 
   const getVolunData = async () => {
     try {
+      setVolLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/eventWiseVol/${loggedUser.club}`
       );
@@ -46,6 +60,8 @@ function App() {
       setVolunteerData(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setVolLoading(false);
     }
   };
 
@@ -94,6 +110,8 @@ function App() {
     volunteerData,
     getMemData,
     getVolunData,
+    memLoading,
+    volLoading,
   };
 
   return (
@@ -102,6 +120,7 @@ function App() {
       <Navbar {...props} />
       <Routes>
         <Route path="/" element={<AuthPage {...props} />} />
+
         <Route
           element={
             <ProtectedRoute
@@ -112,7 +131,14 @@ function App() {
             />
           }
         >
-          <Route path="/genDashboard" element={<GenDashboard {...props} />} />
+          <Route
+            path="/genDashboard"
+            element={
+              <Suspense fallback={<LoadingComponent />}>
+                <GenDashboard {...props} />
+              </Suspense>
+            }
+          />
         </Route>
 
         <Route
@@ -125,7 +151,14 @@ function App() {
             />
           }
         >
-          <Route path="/humanResource" element={<HrDashboard {...props} />} />
+          <Route
+            path="/humanResource"
+            element={
+              <Suspense fallback={<LoadingComponent />}>
+                <HrDashboard {...props} />
+              </Suspense>
+            }
+          />
         </Route>
 
         <Route
@@ -138,7 +171,14 @@ function App() {
             />
           }
         >
-          <Route path="/president" element={<PreDashboard {...props} />} />
+          <Route
+            path="/president"
+            element={
+              <Suspense fallback={<LoadingComponent />}>
+                <PreDashboard {...props} />{" "}
+              </Suspense>
+            }
+          />
         </Route>
 
         <Route
@@ -151,7 +191,14 @@ function App() {
             />
           }
         >
-          <Route path="/advisor" element={<AdvisorDashboard {...props} />} />
+          <Route
+            path="/advisor"
+            element={
+              <Suspense fallback={<LoadingComponent />}>
+                <AdvisorDashboard {...props} />
+              </Suspense>
+            }
+          />
         </Route>
 
         <Route
@@ -166,7 +213,11 @@ function App() {
         >
           <Route
             path="/treasurer"
-            element={<TreasurerDashboard {...props} />}
+            element={
+              <Suspense fallback={<LoadingComponent />}>
+                <TreasurerDashboard {...props} />
+              </Suspense>
+            }
           />
         </Route>
       </Routes>

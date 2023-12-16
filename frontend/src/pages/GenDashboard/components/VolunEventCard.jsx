@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline } from "react-icons/io5";
 import axios from "axios";
+import { LineLoader } from "../../../components/LineLoader";
 
 export const VolunEventCard = ({
   capacity,
@@ -19,9 +20,11 @@ export const VolunEventCard = ({
 }) => {
   const [taskData, setTaskData] = useState({});
   const [taskDone, setTaskDone] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getTaskData = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/assignedEventTask`,
         {
@@ -31,10 +34,11 @@ export const VolunEventCard = ({
         }
       );
 
-      console.log(res.data[0]);
       setTaskData(res.data[0]);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,54 +99,61 @@ export const VolunEventCard = ({
         </li>
       </ul>
 
-      {taskData.task !== null ? (
-        taskData.money > 0 ? (
-          <div className="vol-task-checkbox">
-            <h2>Task Assigned</h2>
-            <div>
-              <input
-                type="checkbox"
-                id="scales"
-                name="task"
-                onChange={() => setTaskDone((prev) => !prev)}
-                checked={taskDone}
-              />
-              <label for="task">
-                <p>{taskData.task}</p>
-                <p>Money Received - TK{taskData.money}</p>
-              </label>
+      {!loading ? (
+        taskData.task !== null ? (
+          taskData.money > 0 ? (
+            <div className="vol-task-checkbox">
+              <h2>Task Assigned</h2>
+              <div>
+                <input
+                  type="checkbox"
+                  id="scales"
+                  name="task"
+                  onChange={() => setTaskDone((prev) => !prev)}
+                  checked={taskDone}
+                />
+                <label for="task">
+                  <p>{taskData.task}</p>
+                  <p>Money Received - TK{taskData.money}</p>
+                </label>
 
-              {taskDone && (
-                <div>
-                  <button className="task-btn-complete" onClick={completeTask}>
-                    Confirm
-                  </button>
-                </div>
-              )}
+                {taskDone && (
+                  <div>
+                    <button
+                      className="task-btn-complete"
+                      onClick={completeTask}
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="vol-task-checkbox">
+              <h2>Task Assigned</h2>
+              <div>
+                <input
+                  type="checkbox"
+                  id="scales"
+                  name="task"
+                  checked={true}
+                  onChange={() => {}}
+                />
+                <label>
+                  <p>{taskData.task}</p>
+                  <p>Completed</p>
+                </label>
+              </div>
+            </div>
+          )
         ) : (
           <div className="vol-task-checkbox">
-            <h2>Task Assigned</h2>
-            <div>
-              <input
-                type="checkbox"
-                id="scales"
-                name="task"
-                checked={true}
-                onChange={() => {}}
-              />
-              <label>
-                <p>{taskData.task}</p>
-                <p>Completed</p>
-              </label>
-            </div>
+            <h2>No Tasks Assigned Yet</h2>
           </div>
         )
       ) : (
-        <div className="vol-task-checkbox">
-          <h2>No Tasks Assigned Yet</h2>
-        </div>
+        <LineLoader />
       )}
     </div>
   );

@@ -4,7 +4,7 @@ import { TreasurerMiddleSection } from "./components/TreasurerMiddleSection";
 import { ClubDetail } from "../../components/ClubDetail";
 import { ClubTotalMembers } from "../../components/ClubTotalMembers";
 
-export const TreasurerDashboard = (props) => {
+const TreasurerDashboard = (props) => {
   return (
     <section className="treasurer-dash-container">
       <ClubTotalMembers {...props} />
@@ -14,3 +14,5 @@ export const TreasurerDashboard = (props) => {
     </section>
   );
 };
+
+export default TreasurerDashboard;

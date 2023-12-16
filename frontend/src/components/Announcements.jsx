@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { SectionLoader } from "./SectionLoader";
 
 export const Announcements = ({ loggedUser }) => {
   const [announcement, setAnnouncment] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const getAnnouncementData = async () => {
     try {
@@ -13,6 +15,8 @@ export const Announcements = ({ loggedUser }) => {
       setAnnouncment(res.data[0]);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,6 +29,8 @@ export const Announcements = ({ loggedUser }) => {
       <h2 className="section-heading">Announcements</h2>
       {announcement === null ? (
         <p className="announcement-text">No announcements yet</p>
+      ) : loading ? (
+        <SectionLoader />
       ) : (
         <div className="ann-card">
           <h1 className="ann-heading">{announcement.announcement_title}</h1>
