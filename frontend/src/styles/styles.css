@@ -64,7 +64,7 @@ html {
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1;
   font-weight: 400;
 
@@ -333,21 +333,37 @@ body {
 /* ****** */
 
 nav {
-  /* background-image: linear-gradient(to Right, #6ea6c0, #89cff0); */
   background-color: #4da2ff;
   height: 7.6rem;
   display: flex;
   justify-content: space-between;
-  padding: 0 9.6rem;
+  padding: 0 3.6rem;
   align-items: center;
+  position: relative;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
 .nav-heading {
   font-family: "Satisfy", "cursive";
   font-size: 3rem;
-  /* font-weight: 600; */
   color: #fff;
   letter-spacing: 0.75px;
+}
+
+.nav-info {
+  font-family: "Raleway", sans-serif;
+  font-size: 2.4rem;
+  color: #fff;
+  letter-spacing: 0.75px;
+  font-weight: 500;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .logout-btn {
@@ -360,6 +376,8 @@ nav {
   color: #fff;
   transition: all 0.3s;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .logout-btn:hover {
@@ -390,6 +408,7 @@ nav {
 }
 
 .section-heading {
+  font-family: "Raleway", sans-serif;
   font-size: 2.4rem;
   font-weight: 600;
   line-height: 1.6;
@@ -412,8 +431,15 @@ nav {
 
 .category {
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #222;
+  letter-spacing: 0.75px;
+}
+
+.monitor-card .category {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
   letter-spacing: 0.75px;
 }
 
@@ -432,7 +458,7 @@ nav {
 .advisor-dash-container,
 .treasurer-dash-container {
   display: grid;
-  font-family: "Inter", "sans-serif";
+  font-family: inherit;
   color: #222;
   margin: 4.8rem 9.6rem;
 
@@ -893,7 +919,7 @@ nav {
 
 .gen-card-title {
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #333;
   line-height: 1.6;
 }
@@ -1337,4 +1363,17 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* media queries */
+@media (max-width: 87em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media (max-width: 78em) {
+  html {
+    font-size: 50%;
+  }
 }

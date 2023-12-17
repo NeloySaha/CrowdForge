@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { IoAnalyticsSharp } from "react-icons/io5";
 
 export const Navbar = ({ setLoggedUser }) => {
   let userType;
@@ -22,8 +23,13 @@ export const Navbar = ({ setLoggedUser }) => {
         display: location.pathname === "/" ? "none" : "",
       }}
     >
+      <div className="logo-container">
+        <IoAnalyticsSharp size="5.2rem" color="#fff" />
+        <h1 className="nav-heading">CrowdForge</h1>
+      </div>
+
       <div>
-        <h1 className="nav-heading">{userType} Dashboard</h1>
+        <h1 className="nav-info">{userType} Dashboard</h1>
       </div>
 
       <button
