@@ -102,7 +102,6 @@ export const AdvEventCard = ({
         </button>
       </div>
 
-      <div className={`backdrop ${fundModalOn ? "visible" : ""}`} />
       {fundModalOn && <FundModal {...props} />}
     </div>
   );

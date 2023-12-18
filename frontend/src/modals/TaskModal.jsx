@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
 
 export const TaskModal = (props) => {
@@ -16,6 +17,7 @@ export const TaskModal = (props) => {
     getVolunteerData,
   } = props;
   const [inpData, setInpData] = useState({ money: "", task: "" });
+  const taskModalRef = useRef();
 
   const handleChange = (e) => {
     setInpData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -66,8 +68,16 @@ export const TaskModal = (props) => {
     }
   };
 
-  return (
-    <div className="modal">
+  useEffect(() => {
+    if (taskModalOn) {
+      taskModalRef.current?.showModal();
+    } else {
+      taskModalRef.current?.close();
+    }
+  }, [taskModalOn]);
+
+  return ReactDOM.createPortal(
+    <dialog className="modal" ref={taskModalRef}>
       <button className="modal-exit-btn" onClick={() => setTaskModalOn(false)}>
         <IoClose size="1.8rem" color="#eb3656" />
       </button>
@@ -116,6 +126,7 @@ export const TaskModal = (props) => {
           </button>
         </div>
       </form>
-    </div>
+    </dialog>,
+    document.getElementById("portal")
   );
 };

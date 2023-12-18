@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 
@@ -15,6 +16,7 @@ export const FundModal = ({
   setLoggedUser,
 }) => {
   const [curAmount, setCurAmount] = useState(0);
+  const fundModalRef = useRef();
 
   const confirmTransaction = async () => {
     try {
@@ -63,8 +65,16 @@ export const FundModal = ({
     }
   };
 
-  return (
-    <div className="modal">
+  useEffect(() => {
+    if (fundModalOn) {
+      fundModalRef.current?.showModal();
+    } else {
+      fundModalRef.current?.close();
+    }
+  }, [fundModalOn]);
+
+  return ReactDOM.createPortal(
+    <dialog className="modal" ref={fundModalRef}>
       <button className="modal-exit-btn" onClick={() => setFundModalOn(false)}>
         <IoClose size="1.8rem" color="#eb3656" />
       </button>
@@ -101,6 +111,7 @@ export const FundModal = ({
           </button>
         </div>
       </form>
-    </div>
+    </dialog>,
+    document.querySelector("#portal")
   );
 };

@@ -31,7 +31,6 @@ export const TreVolunteerCard = (props) => {
         </button>
       </div>
 
-      <div className={`backdrop ${taskModalOn ? "visible" : ""}`} />
       {taskModalOn && <TaskModal {...newProps} />}
     </div>
   );
