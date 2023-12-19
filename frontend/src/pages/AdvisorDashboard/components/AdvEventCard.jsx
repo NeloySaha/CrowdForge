@@ -40,6 +40,7 @@ export const AdvEventCard = ({
     day: "numeric",
     year: "numeric",
   });
+  // adding a comment
 
   return (
     <div className="detail-event-box">
