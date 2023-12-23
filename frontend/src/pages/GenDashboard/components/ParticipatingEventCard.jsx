@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline } from "react-icons/io5";
 import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 
 export const ParticipatingEventCard = ({
   capacity,
@@ -25,9 +26,11 @@ export const ParticipatingEventCard = ({
     day: "numeric",
     year: "numeric",
   });
+  const [volLoading, setVolLoading] = useState(false);
 
   const volFunc = async () => {
     try {
+      setVolLoading(true);
       const dataObj = {
         email: loggedUser.email,
         event_id,
@@ -43,6 +46,7 @@ export const ParticipatingEventCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setVolLoading(false);
       getUpcomingEventsData();
       getParEventsData();
       getVolunEventsData();
@@ -80,7 +84,11 @@ export const ParticipatingEventCard = ({
       <div className="event-btn-container">
         {club_name === loggedUser.club && volun !== 1 && (
           <button className="eventbtn volbtn" onClick={volFunc}>
-            Volunteer
+            {!volLoading ? (
+              "Volunteer"
+            ) : (
+              <ScaleLoader color="#fff" height={10} />
+            )}
           </button>
         )}
       </div>

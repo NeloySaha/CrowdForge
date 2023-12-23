@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 
 export const CreateEvent = ({ loggedUser, successToast, failedToast }) => {
   const { club } = loggedUser;
@@ -16,6 +17,7 @@ export const CreateEvent = ({ loggedUser, successToast, failedToast }) => {
     money_received: 0,
     restriction: 0,
   });
+  const [createLoading, setCreateLoading] = useState(false);
 
   const handleEventData = (e) => {
     setInputData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -23,6 +25,7 @@ export const CreateEvent = ({ loggedUser, successToast, failedToast }) => {
 
   const createEvent = async () => {
     try {
+      setCreateLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/createEvent`,
         {
@@ -38,6 +41,7 @@ export const CreateEvent = ({ loggedUser, successToast, failedToast }) => {
       console.log(err);
       // failedToast(err.response.data);
     } finally {
+      setCreateLoading(false);
       setInputData({
         name: "",
         cost: "",
@@ -180,7 +184,11 @@ export const CreateEvent = ({ loggedUser, successToast, failedToast }) => {
             disabled={postDisabled}
             className={postDisabled ? "post-disabled-btn" : "post-btn"}
           >
-            Post
+            {!createLoading ? (
+              "Create"
+            ) : (
+              <ScaleLoader color="#fff" height={10} />
+            )}
           </button>
           <button
             type="button"

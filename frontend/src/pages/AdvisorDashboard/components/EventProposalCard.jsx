@@ -2,6 +2,8 @@ import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline, IoBan } from "react-icons/io5";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import axios from "axios";
+import { useState } from "react";
+import { ScaleLoader } from "react-spinners";
 
 export const EventProposalCard = ({
   capacity,
@@ -23,9 +25,12 @@ export const EventProposalCard = ({
     day: "numeric",
     year: "numeric",
   });
+  const [appLoading, setAppLoading] = useState(false);
+  const [rejLoading, setRejLoading] = useState(false);
 
   const approveEvent = async () => {
     try {
+      setAppLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/approveEventReq`,
         {
@@ -37,6 +42,7 @@ export const EventProposalCard = ({
           club_name,
           restriction: +restriction,
           event_id,
+          money_received: 0,
         }
       );
 
@@ -46,12 +52,14 @@ export const EventProposalCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setAppLoading(false);
       getEventData();
     }
   };
 
   const rejectEvent = async () => {
     try {
+      setRejLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/rejectEventReq`,
         {
@@ -65,6 +73,7 @@ export const EventProposalCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setRejLoading(false);
       getEventData();
     }
   };
@@ -123,11 +132,11 @@ export const EventProposalCard = ({
 
       <div className="det-event-btn-container">
         <button className="eventbtn volbtn" onClick={approveEvent}>
-          Approve
+          {!appLoading ? "Approve" : <ScaleLoader color="#fff" height={10} />}
         </button>
 
         <button className="eventbtn parbtn" onClick={rejectEvent}>
-          Reject
+          {!rejLoading ? "Reject" : <ScaleLoader color="#fff" height={10} />}
         </button>
       </div>
     </div>

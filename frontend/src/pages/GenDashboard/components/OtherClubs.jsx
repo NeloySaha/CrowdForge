@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SectionLoader } from "../../../components/SectionLoader";
 
 export const OtherClubs = ({ loggedUser }) => {
   const { club } = loggedUser;
   const [otherClubs, setOtherClubs] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate();
 
   const getOtherClubData = async () => {
     try {
@@ -70,14 +68,9 @@ export const OtherClubs = ({ loggedUser }) => {
         <div className="other-club-section">{otherClubsHtml}</div>
       )}
       <div className="other-club-bottom">
-        <button
-          className="join-other-btn eventbtn"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
+        <Link className="join-other-btn" to="/">
           Join Other Clubs&rarr;
-        </button>
+        </Link>
       </div>
     </div>
   );

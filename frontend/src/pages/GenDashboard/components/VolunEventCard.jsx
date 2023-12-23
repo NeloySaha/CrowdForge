@@ -3,6 +3,7 @@ import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline } from "react-icons/io5";
 import axios from "axios";
 import { LineLoader } from "../../../components/LineLoader";
+import { ScaleLoader } from "react-spinners";
 
 export const VolunEventCard = ({
   capacity,
@@ -21,6 +22,7 @@ export const VolunEventCard = ({
   const [taskData, setTaskData] = useState({});
   const [taskDone, setTaskDone] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [taskLoading, setTaskLoading] = useState(false);
 
   const getTaskData = async () => {
     try {
@@ -44,6 +46,7 @@ export const VolunEventCard = ({
 
   const completeTask = async () => {
     try {
+      setTaskLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/completeTask`,
         {
@@ -58,6 +61,7 @@ export const VolunEventCard = ({
       failedToast(err?.response.data);
       console.log(err);
     } finally {
+      setTaskLoading(false);
       getTaskData();
     }
   };
@@ -123,7 +127,11 @@ export const VolunEventCard = ({
                       className="task-btn-complete"
                       onClick={completeTask}
                     >
-                      Confirm
+                      {!taskLoading ? (
+                        "Confirm"
+                      ) : (
+                        <ScaleLoader color="#fff" height={8} />
+                      )}
                     </button>
                   </div>
                 )}

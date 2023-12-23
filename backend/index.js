@@ -628,17 +628,19 @@ app.post("/approveEventReq", (req, res) => {
     club_name,
     restriction,
     event_id,
+    money_received,
   } = req.body;
 
   const sql1 =
-    "INSERT into event (name,cost,date,capacity,venue,club_name,restriction) Values (?,?,?,?,?,?,?)";
+    "INSERT into event (name,cost,date,capacity,venue,club_name,restriction,money_received) Values (?,?,STR_TO_DATE(?, '%Y-%m-%dT%H:%i:%s.%fZ'),?,?,?,?,?)";
   const sql2 = "DELETE FROM incoming_event WHERE event_id = ?";
 
   db.query(
     sql1,
-    [name, cost, date, capacity, venue, club_name, restriction],
+    [name, cost, date, capacity, venue, club_name, restriction, money_received],
     (err1, data1) => {
-      if (err1) return res.send("Couldn't approve event");
+      // if (err1) return res.send("Couldn't approve event");
+      if (err1) return res.json(err1);
 
       db.query(sql2, [event_id], (err2, data2) => {
         if (err2) return res.send("Couldn't delete the data");

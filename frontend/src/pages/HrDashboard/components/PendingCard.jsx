@@ -1,5 +1,6 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
+import { ScaleLoader } from "react-spinners";
 
 export const PendingCard = ({
   loggedUser,
@@ -12,6 +13,9 @@ export const PendingCard = ({
   const { contact_no, department, gender, name, email, dob, club, password } =
     pendingObj;
 
+  const [appLoading, setAppLoading] = useState(false);
+  const [rejLoading, setRejLoading] = useState(false);
+
   const formattedDate = new Date(dob).toLocaleString("en-US", {
     month: "short",
     day: "numeric",
@@ -20,6 +24,7 @@ export const PendingCard = ({
 
   const approveFunc = async () => {
     try {
+      setAppLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/hrMemInsert`,
         {
@@ -51,6 +56,7 @@ export const PendingCard = ({
 
       failedToast(err.response.data);
     } finally {
+      setAppLoading(false);
       getPendingReqData();
       getMemData();
     }
@@ -58,6 +64,7 @@ export const PendingCard = ({
 
   const rejectFunc = async () => {
     try {
+      setRejLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/hrRejectReq`,
         {
@@ -71,6 +78,7 @@ export const PendingCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setRejLoading(false);
       getPendingReqData();
     }
   };
@@ -110,11 +118,19 @@ export const PendingCard = ({
 
         <div className="pending-btn-container">
           <button className="eventbtn volbtn" onClick={approveFunc}>
-            Approve
+            {!appLoading ? (
+              "Approve"
+            ) : (
+              <ScaleLoader color="#fff" size={7} height={16} />
+            )}
           </button>
 
           <button className="eventbtn parbtn" onClick={rejectFunc}>
-            Reject
+            {!rejLoading ? (
+              "Reject"
+            ) : (
+              <ScaleLoader color="#fff" size={7} height={16} />
+            )}
           </button>
         </div>
       </ul>

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { PresEventCard } from "./PresEventCard";
 import axios from "axios";
+import { SectionLoader } from "../../../components/SectionLoader";
 
 export const PresEvents = (props) => {
   const [eventData, setEventData] = useState([]);
   const { club } = props.loggedUser;
+  const [loading, setLoading] = useState(true);
 
   const getEventData = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/clubEvents/${club}`
       );
@@ -15,6 +18,8 @@ export const PresEvents = (props) => {
       setEventData(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,7 +38,11 @@ export const PresEvents = (props) => {
   return (
     <div className="events-container">
       <h1 className="section-heading">Ongoing Events</h1>
-      <div className="events">{eventCards}</div>
+      {!loading ? (
+        <div className="events">{eventCards}</div>
+      ) : (
+        <SectionLoader />
+      )}
     </div>
   );
 };

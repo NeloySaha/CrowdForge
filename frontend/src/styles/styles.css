@@ -64,7 +64,7 @@ html {
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Raleway", sans-serif;
   line-height: 1;
   font-weight: 400;
 
@@ -84,7 +84,6 @@ body {
 
 .auth-container {
   width: 108rem;
-  /* background-color: teal; */
   margin-left: auto;
   margin-right: auto;
   padding-top: 9.6rem;
@@ -113,11 +112,6 @@ body {
   font-size: 11.6rem;
   text-align: center;
 }
-/* .auth-heading p {
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(---primary--color-2);
-} */
 
 .auth {
   background-color: var(--shade-1);
@@ -165,6 +159,7 @@ body {
 .announce-form--category *,
 .monitor-selector *,
 .edit-profile-form * {
+  font-family: inherit;
   outline: 3px solid transparent;
   transition: all 0.2s ease-in;
 }
@@ -355,7 +350,7 @@ nav {
 }
 
 .nav-info {
-  font-family: "Raleway", sans-serif;
+  font-family: inherit;
   font-size: 2.4rem;
   color: #fff;
   letter-spacing: 0.75px;
@@ -408,7 +403,7 @@ nav {
 }
 
 .section-heading {
-  font-family: "Raleway", sans-serif;
+  font-family: inherit;
   font-size: 2.4rem;
   font-weight: 600;
   line-height: 1.6;
@@ -534,7 +529,11 @@ nav {
 
 .eventbtn {
   border: none;
-  padding: 1.2rem 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 11.6rem;
+  height: 4rem;
   border-radius: 9px;
   font-family: inherit;
   font-size: 1.4rem;
@@ -639,11 +638,19 @@ nav {
 }
 
 .join-other-btn {
-  background-color: #007aff;
+  border-bottom: 2px solid #007aff;
+  padding-bottom: 0.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.75px;
+  color: #007aff;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
 }
 
 .join-other-btn:hover {
-  background-color: #66afff;
+  color: #66afff;
+  border-bottom: 2px solid #66afff;
 }
 
 /* Announcement */
@@ -941,6 +948,7 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  font-family: inherit;
 }
 
 .announce-form--category select,

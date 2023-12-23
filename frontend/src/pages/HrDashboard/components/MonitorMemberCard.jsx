@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { IoAddOutline, IoChevronDownSharp, IoChevronUp } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
+import { ScaleLoader } from "react-spinners";
 
 export const MonitorMemberCard = ({
   name,
@@ -23,6 +24,9 @@ export const MonitorMemberCard = ({
   const [showConfirmBtn, setShowConfirmBtn] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const [promoted_designation, setPromotedDesignation] = useState("treasurer");
+  const [proLoading, setProLoading] = useState(false);
+  const [remLoading, setRemLoading] = useState(false);
+  const [ratingLoading, setRatingLoading] = useState(false);
 
   const handleChange = (e) => {
     setPromotedDesignation(e.target.value);
@@ -40,6 +44,7 @@ export const MonitorMemberCard = ({
 
   const handleUpdateRating = async () => {
     try {
+      setRatingLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/updateRating`,
         {
@@ -55,12 +60,14 @@ export const MonitorMemberCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setRatingLoading(false);
       getMemberData();
     }
   };
 
   const handleRemoveMember = async () => {
     try {
+      setRemLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/removeMembers`,
         {
@@ -84,6 +91,7 @@ export const MonitorMemberCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setRemLoading(false);
       getMemberData();
       getMemData();
       getVolunData();
@@ -92,6 +100,7 @@ export const MonitorMemberCard = ({
 
   const insertPromoteData = async () => {
     try {
+      setProLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/hrPromoReq`,
         {
@@ -110,6 +119,7 @@ export const MonitorMemberCard = ({
       console.log(err);
       failedToast("Sorry Request failed!");
     } finally {
+      setProLoading(false);
       getMemberData();
     }
   };
@@ -142,7 +152,11 @@ export const MonitorMemberCard = ({
         <div>
           {showConfirmBtn && (
             <button className="confirm-btn" onClick={handleUpdateRating}>
-              Confirm
+              {!ratingLoading ? (
+                "Confirm"
+              ) : (
+                <ScaleLoader color="#fff" size={7} height={10} />
+              )}
             </button>
           )}
         </div>
@@ -164,15 +178,24 @@ export const MonitorMemberCard = ({
             <select name="promoted_designation" onChange={handleChange}>
               <option value="treasurer">Treasurer</option>
               <option value="hr">HR</option>
+              <option value="general">General</option>
             </select>
           </div>
 
           <button className="confirm-btn" onClick={insertPromoteData}>
-            Promote
+            {!proLoading ? (
+              "Promote"
+            ) : (
+              <ScaleLoader color="#fff" size={7} height={10} />
+            )}
           </button>
 
           <button className="remove-btn" onClick={handleRemoveMember}>
-            Remove
+            {!remLoading ? (
+              "Remove"
+            ) : (
+              <ScaleLoader color="#fff" size={7} height={10} />
+            )}
           </button>
         </div>
       )}

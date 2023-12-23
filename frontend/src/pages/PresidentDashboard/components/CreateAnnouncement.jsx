@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { ScaleLoader } from "react-spinners";
 
 export const CreateAnnouncement = ({
   loggedUser,
@@ -8,6 +9,7 @@ export const CreateAnnouncement = ({
 }) => {
   const [postDisabled, setPostDisabled] = useState(true);
   const [resetDisabled, setResetDisabled] = useState(true);
+  const [postLoading, setPostLoading] = useState(false);
   const [annInfo, setAnnInfo] = useState({
     title: "",
     content: "",
@@ -34,6 +36,7 @@ export const CreateAnnouncement = ({
 
   const createAnnouncement = async () => {
     try {
+      setPostLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/setAnnouncement`,
         {
@@ -47,6 +50,7 @@ export const CreateAnnouncement = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setPostLoading(false);
       setAnnInfo({
         title: "",
         content: "",
@@ -92,7 +96,7 @@ export const CreateAnnouncement = ({
             disabled={postDisabled}
             className={postDisabled ? "post-disabled-btn" : "post-btn"}
           >
-            Post
+            {!postLoading ? "Post" : <ScaleLoader color="#fff" height={10} />}
           </button>
           <button
             type="button"

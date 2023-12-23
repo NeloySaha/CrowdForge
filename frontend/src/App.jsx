@@ -72,11 +72,11 @@ function App() {
     draggable: true,
   };
   const toastFontStyle = {
-    fontFamily: "Inter",
-    fontSize: "1.2rem",
+    fontFamily: "Raleway",
+    fontSize: "1.4rem",
     fontWeight: 500,
     letterSpacing: "0.75px",
-    color: "#333",
+    color: "#222",
   };
 
   useEffect(() => {

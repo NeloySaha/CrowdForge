@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
+import { ScaleLoader } from "react-spinners";
 
 export const TaskModal = (props) => {
   const {
@@ -18,6 +19,7 @@ export const TaskModal = (props) => {
   } = props;
   const [inpData, setInpData] = useState({ money: "", task: "" });
   const taskModalRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setInpData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,6 +27,7 @@ export const TaskModal = (props) => {
 
   const assignTask = async () => {
     try {
+      setLoading(true);
       const assignedData = {
         event_id,
         email: volObj.email,
@@ -63,6 +66,7 @@ export const TaskModal = (props) => {
     } catch (err) {
       console.log(err);
     } finally {
+      setLoading(false);
       setTaskModalOn(false);
       getVolunteerData();
     }
@@ -116,7 +120,9 @@ export const TaskModal = (props) => {
         </div>
 
         <div className="modal-btn-container">
-          <button className="eventbtn volbtn">Confirm</button>
+          <button className="eventbtn volbtn">
+            {!loading ? "Confirm" : <ScaleLoader color="#fff" height={10} />}
+          </button>
           <button
             type="button"
             className="eventbtn parbtn"

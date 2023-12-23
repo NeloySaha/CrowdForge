@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 
 export const PromoCard = ({
   loggedUser,
@@ -9,9 +10,12 @@ export const PromoCard = ({
   getPendingReqData,
 }) => {
   const { name, email, designation, promoted_designation } = pendingObj;
+  const [acceptLoading, setAcceptLoading] = useState(false);
+  const [rejLoading, setRejLoading] = useState(false);
 
   const approveFunc = async () => {
     try {
+      setAcceptLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/approvePromReq`,
         {
@@ -41,12 +45,14 @@ export const PromoCard = ({
 
       failedToast(err.response.data);
     } finally {
+      setAcceptLoading(false);
       getPendingReqData();
     }
   };
 
   const rejectFunc = async () => {
     try {
+      setRejLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/rejectPromReq`,
         {
@@ -60,6 +66,7 @@ export const PromoCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setRejLoading(false);
       getPendingReqData();
     }
   };
@@ -89,11 +96,15 @@ export const PromoCard = ({
 
         <div className="pending-btn-container">
           <button className="eventbtn volbtn" onClick={approveFunc}>
-            Approve
+            {!acceptLoading ? (
+              "Approve"
+            ) : (
+              <ScaleLoader color="#fff" height={10} />
+            )}
           </button>
 
           <button className="eventbtn parbtn" onClick={rejectFunc}>
-            Reject
+            {!rejLoading ? "Reject" : <ScaleLoader color="#fff" height={10} />}
           </button>
         </div>
       </ul>

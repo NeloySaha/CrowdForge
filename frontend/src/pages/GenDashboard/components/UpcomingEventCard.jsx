@@ -1,7 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { LiaBuilding, LiaCalendar } from "react-icons/lia";
 import { IoPeopleOutline } from "react-icons/io5";
+import { ScaleLoader } from "react-spinners";
 
 export const UpcomingEventCard = ({
   capacity,
@@ -26,8 +27,12 @@ export const UpcomingEventCard = ({
     year: "numeric",
   });
 
+  const [volLoading, setVolLoading] = useState(false);
+  const [parLoadiing, setParLoading] = useState(false);
+
   const participateFunc = async () => {
     try {
+      setParLoading(true);
       const dataObj = {
         email: loggedUser.email,
         event_id,
@@ -43,6 +48,7 @@ export const UpcomingEventCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setParLoading(false);
       getUpcomingEventsData();
       getParEventsData();
       getVolunEventsData();
@@ -51,6 +57,7 @@ export const UpcomingEventCard = ({
 
   const volFunc = async () => {
     try {
+      setVolLoading(true);
       const dataObj = {
         email: loggedUser.email,
         event_id,
@@ -66,6 +73,7 @@ export const UpcomingEventCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setVolLoading(false);
       getUpcomingEventsData();
       getParEventsData();
       getVolunEventsData();
@@ -103,11 +111,19 @@ export const UpcomingEventCard = ({
       <div className="event-btn-container">
         {club_name === loggedUser.club && (
           <button className="eventbtn volbtn" onClick={volFunc}>
-            Volunteer
+            {!volLoading ? (
+              "Volunteer"
+            ) : (
+              <ScaleLoader color="#fff" height={10} />
+            )}
           </button>
         )}
         <button className="eventbtn parbtn" onClick={participateFunc}>
-          Participate
+          {!parLoadiing ? (
+            "Participate"
+          ) : (
+            <ScaleLoader color="#fff" height={10} />
+          )}
         </button>
       </div>
     </div>

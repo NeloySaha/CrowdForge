@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { ScaleLoader } from "react-spinners";
 
 export const FundModal = ({
   loggedUser,
@@ -16,10 +17,12 @@ export const FundModal = ({
   setLoggedUser,
 }) => {
   const [curAmount, setCurAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const fundModalRef = useRef();
 
   const confirmTransaction = async () => {
     try {
+      setLoading(true);
       if (+curAmount > loggedUser.money) {
         failedToast("Not enough money");
         throw new Error("Not enough money");
@@ -60,6 +63,7 @@ export const FundModal = ({
       failedToast(err.response.data);
       console.log(err);
     } finally {
+      setLoading(false);
       setFundModalOn(false);
       getEventData();
     }
@@ -101,7 +105,9 @@ export const FundModal = ({
         </div>
 
         <div className="modal-btn-container">
-          <button className="eventbtn volbtn">Confirm</button>
+          <button className="eventbtn volbtn">
+            {!loading ? "Confirm" : <ScaleLoader color="#fff" height={10} />}
+          </button>
           <button
             type="button"
             className="eventbtn parbtn"

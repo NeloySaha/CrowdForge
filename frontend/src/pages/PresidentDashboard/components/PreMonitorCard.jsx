@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { IoAddOutline, IoChevronDownSharp, IoChevronUp } from "react-icons/io5";
-import { FiMinus } from "react-icons/fi";
+import { IoChevronDownSharp, IoChevronUp } from "react-icons/io5";
+import { ScaleLoader } from "react-spinners";
 
 export const PreMonitorCard = ({
   name,
@@ -21,6 +21,8 @@ export const PreMonitorCard = ({
 }) => {
   const [dropDown, setDropDown] = useState(false);
   const [promoted_designation, setPromotedDesignation] = useState("treasurer");
+  const [proLoading, setProLoading] = useState(false);
+  const [remLoading, setRemLoading] = useState(false);
 
   const handleChange = (e) => {
     setPromotedDesignation(e.target.value);
@@ -28,6 +30,7 @@ export const PreMonitorCard = ({
 
   const promoteMember = async () => {
     try {
+      setProLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/presidentPromote`,
         {
@@ -51,12 +54,14 @@ export const PreMonitorCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setProLoading(false);
       getAllData();
     }
   };
 
   const handleRemoveMember = async () => {
     try {
+      setRemLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/removeMembers`,
         {
@@ -81,6 +86,7 @@ export const PreMonitorCard = ({
       console.log(err);
       failedToast(err.response.data);
     } finally {
+      setRemLoading(false);
       getAllData();
       getMemData();
       getVolunData();
@@ -121,15 +127,16 @@ export const PreMonitorCard = ({
             <select name="promoted_designation" onChange={handleChange}>
               <option value="treasurer">Treasurer</option>
               <option value="hr">HR</option>
+              <option value="general">General</option>
             </select>
           </div>
 
           <button className="confirm-btn" onClick={promoteMember}>
-            Promote
+            {!proLoading ? "Promote" : <ScaleLoader color="#fff" height={10} />}
           </button>
 
           <button className="remove-btn" onClick={handleRemoveMember}>
-            Remove
+            {!remLoading ? "Remove" : <ScaleLoader color="#fff" height={10} />}
           </button>
         </div>
       )}

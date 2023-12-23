@@ -1,0 +1,25 @@
+{
+  "routes": [
+    { "src": "/", "dest": "/" },
+    {
+      "src": "/genDashboard",
+      "dest": "/"
+    },
+    {
+      "src": "/humanResource",
+      "dest": "/"
+    },
+    {
+      "src": "/president",
+      "dest": "/"
+    },
+    {
+      "src": "/advisor",
+      "dest": "/"
+    },
+    {
+      "src": "/treasurer",
+      "dest": "/"
+    }
+  ]
+}

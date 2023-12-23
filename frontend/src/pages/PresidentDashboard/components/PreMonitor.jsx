@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { PreMonitorCard } from "./PreMonitorCard";
+import { SectionLoader } from "../../../components/SectionLoader";
 
 export const PreMonitor = (props) => {
   const [query, setQuery] = useState("");
   const [monitoredMembers, setMonitoredMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const submitFunc = (e) => {
     e.preventDefault();
@@ -13,6 +15,7 @@ export const PreMonitor = (props) => {
 
   const getAllData = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/clubMembers`,
         {
@@ -24,11 +27,17 @@ export const PreMonitor = (props) => {
       setMonitoredMembers(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
+      setQuery("");
     }
   };
 
   const getSearchData = async () => {
     try {
+      setLoading(true);
+      if (query === "") throw new Error("Please enter names to search!");
+
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/presidentSearch`,
         {
@@ -41,6 +50,10 @@ export const PreMonitor = (props) => {
       setMonitoredMembers(res.data);
     } catch (err) {
       console.log(err);
+      props.failedToast(err?.message);
+    } finally {
+      setLoading(false);
+      setQuery("");
     }
   };
 
@@ -86,15 +99,19 @@ export const PreMonitor = (props) => {
         </button>
       </form>
 
-      <div className="pending-card-container">
-        <ul className="category-title-bar">
-          <li>Name</li>
-          <li>Designation</li>
-          <li>Phone Number</li>
-          <li>Current Rating</li>
-        </ul>
-        <div className="monitor-cards">{filterCards}</div>
-      </div>
+      {!loading ? (
+        <div className="pending-card-container">
+          <ul className="category-title-bar">
+            <li>Name</li>
+            <li>Designation</li>
+            <li>Phone Number</li>
+            <li>Current Rating</li>
+          </ul>
+          <div className="monitor-cards">{filterCards}</div>
+        </div>
+      ) : (
+        <SectionLoader />
+      )}
     </div>
   );
 };
