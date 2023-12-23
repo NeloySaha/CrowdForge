@@ -15,7 +15,6 @@ export const TreFinance = (props) => {
         `${import.meta.env.VITE_API_URL}/fundedEvents/${club}`
       );
 
-      console.log(res.data);
       setEventData(res.data);
     } catch (err) {
       console.log(err);

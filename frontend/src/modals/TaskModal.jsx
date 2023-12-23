@@ -36,8 +36,6 @@ export const TaskModal = (props) => {
         task: inpData.task,
       };
 
-      console.log(assignedData);
-
       if (+inpData.money > money_received) {
         failedToast("Cost Limit exceeded for this event");
         throw new Error("Cost Limit exceeded for this event");

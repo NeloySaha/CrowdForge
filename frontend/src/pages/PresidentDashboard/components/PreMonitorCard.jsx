@@ -70,7 +70,6 @@ export const PreMonitorCard = ({
         }
       );
 
-      console.log(res.data);
       successToast(res.data);
 
       const emailRes = await axios.post(

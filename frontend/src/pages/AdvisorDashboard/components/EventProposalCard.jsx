@@ -46,7 +46,6 @@ export const EventProposalCard = ({
         }
       );
 
-      console.log(res.data);
       successToast(res.data);
     } catch (err) {
       console.log(err);
@@ -67,7 +66,6 @@ export const EventProposalCard = ({
         }
       );
 
-      console.log(res.data);
       successToast(res.data);
     } catch (err) {
       console.log(err);

@@ -30,7 +30,6 @@ export const TreFinanceCard = ({
         `${import.meta.env.VITE_API_URL}/volTaskStatus/${event_id}`
       );
 
-      console.log(res.data);
       setVolData(res.data);
     } catch (err) {
       console.log(err);

@@ -86,7 +86,6 @@ export const FundModal = ({
         className="modal-form"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(event_id);
           confirmTransaction();
         }}
       >

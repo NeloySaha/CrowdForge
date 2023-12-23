@@ -15,7 +15,6 @@ export const AdvEventProposals = (props) => {
         `${import.meta.env.VITE_API_URL}/eventProposals/${club}`
       );
 
-      console.log(res.data);
       setEventData(res.data);
     } catch (err) {
       console.log(err);
