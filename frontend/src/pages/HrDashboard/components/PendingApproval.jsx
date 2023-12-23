@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { PendingCard } from "./pendingCard";
+import { PendingCard } from "./PendingCard";
 import { SectionLoader } from "../../../components/SectionLoader";
 
 export const PendingApproval = (props) => {
