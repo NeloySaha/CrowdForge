@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { MonitorMemberCard } from "./MonitorMemberCard";
 import { SectionLoader } from "../../../components/SectionLoader";
 
@@ -10,8 +10,25 @@ export const Monitor = (props) => {
 
   const submitFunc = (e) => {
     e.preventDefault();
-    getSearchData();
   };
+
+  const debounceSearch = (cb, delay) => {
+    let timeout;
+
+    return (...funcCalls) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        cb(...funcCalls);
+      }, delay);
+    };
+  };
+
+  const updateSearchResults = debounceSearch(
+    (query) => getSearchData(query),
+    500
+  );
+
+  const results = useCallback((query) => updateSearchResults(query), []);
 
   const getAllData = async () => {
     try {
@@ -29,21 +46,22 @@ export const Monitor = (props) => {
     }
   };
 
-  const getSearchData = async () => {
+  const getSearchData = async (currentQuery) => {
     try {
       setLoading(true);
-      if (query === "") throw new Error("Please enter names to search!");
+      if (currentQuery === "") {
+        getAllData();
+        return;
+      }
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/hrSearch`, {
-        query,
+        query: currentQuery,
         club: props.loggedUser.club,
       });
 
       setMonitoredMembers(res.data);
     } catch (err) {
       console.log(err);
-      props.failedToast(err?.message);
     } finally {
-      setQuery("");
       setLoading(false);
     }
   };
@@ -74,11 +92,11 @@ export const Monitor = (props) => {
             type="search"
             placeholder="Search members"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              results(e.target.value);
+            }}
           />
-          <button className="search-btn" type="submit">
-            Search
-          </button>
         </div>
 
         <button

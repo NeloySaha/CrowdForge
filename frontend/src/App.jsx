@@ -56,7 +56,6 @@ function App() {
         `${import.meta.env.VITE_API_URL}/eventWiseVol/${loggedUser.club}`
       );
 
-      console.log(res.data);
       setVolunteerData(res.data);
     } catch (err) {
       console.log(err);
