@@ -8,7 +8,7 @@ CrowdForge is a platform that facilitates the seamless management of numerous un
 
 #### Sneak Peek👀
 
-![Demo](/demo/demo.png)
+![Demo](/demo/demo-new.png)
 
 #### Use the Test Accounts given below to visit different types of available **Dashboards**🛠️
 

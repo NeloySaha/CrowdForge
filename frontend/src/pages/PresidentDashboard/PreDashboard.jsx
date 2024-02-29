@@ -1,4 +1,3 @@
-import React from "react";
 import { PreDashSection } from "./components/PreDashSection";
 
 const PreDashboard = (props) => {

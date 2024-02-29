@@ -1,4 +1,3 @@
-import React from "react";
 import { HrDashContainer } from "./components/HrDashContainer";
 
 const HrDashboard = (props) => {

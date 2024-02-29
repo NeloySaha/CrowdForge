@@ -48,29 +48,29 @@ function handleDisconnect() {
 handleDisconnect();
 
 app.get("/", (req, res) => {
-  return res.send("Hello From University Backend");
+  return res.send("Connected to CrowdForge Backend");
 });
 
 // sending email
 app.post("/sendEmail", (req, res) => {
   const { msg, email } = req.body;
 
-  // const mailOptions = {
-  //   from: process.env.EMAIL,
-  //   to: "",
-  //   subject: "CrowdForge Status Update",
-  //   text: msg,
-  // };
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "CrowdForge Status Update",
+    text: msg,
+  };
 
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //   if (error) {
-  //     return res.send("Couldn't send the email!");
-  //   }
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.send("Couldn't send the email!");
+    }
 
-  //   return res.send("Email sent successfully");
-  // });
+    return res.send("Email sent successfully");
+  });
 
-  return res.send("Email Sending is currently paused");
+  // return res.send("Email Sending is currently paused");
 });
 
 // club data

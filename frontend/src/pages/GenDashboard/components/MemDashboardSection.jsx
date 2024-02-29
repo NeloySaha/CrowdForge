@@ -1,4 +1,3 @@
-import React from "react";
 import { DetailsSection } from "../../../components/DetailsSection";
 import { EventsContainer } from "./EventsContainer";
 import { OtherClubs } from "./OtherClubs";
