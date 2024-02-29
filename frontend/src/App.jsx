@@ -23,6 +23,7 @@ const TreasurerDashboard = lazy(() =>
   import("./pages/TreasurerDashboard/TreasurerDashboard")
 );
 
+
 function App() {
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("currentUser")) || {}
