@@ -4,17 +4,14 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 export const PresEventCard = ({
   capacity,
-  club_name,
+
   cost,
   date,
-  event_id,
+
   money_received,
   name,
   venue,
   restriction,
-  loggedUser,
-  successToast,
-  failedToast,
 }) => {
   const formattedDate = new Date(date).toLocaleString("en-US", {
     month: "short",

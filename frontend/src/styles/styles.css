@@ -1330,6 +1330,14 @@ nav {
     padding: 0 3.6rem;
   }
 
+  .hr-middle-section,
+  .pre-middle-section,
+  .tre-middle-section,
+  .adv-middle-section {
+    grid-row: span 3;
+    grid-column: 2/3;
+  }
+
   .other-club-container {
     margin-top: 4.8rem;
     grid-column: 1/-1;
@@ -1340,20 +1348,6 @@ nav {
     grid-template-columns: 0.5fr 0.5fr;
     gap: 2.4rem;
   }
-  /* .detail-section {
-    grid-column: 1/2;
-  }
-
-  .dash-third-section {
-    grid-column: 3/4;
-    grid-row: 1/-1;
-  }
-
-  .vol-info-card-container {
-    display: grid;
-    grid-template-rows: 1fr;
-    gap: 2.4rem;
-  } */
 }
 
 @media (max-width: 87em) {

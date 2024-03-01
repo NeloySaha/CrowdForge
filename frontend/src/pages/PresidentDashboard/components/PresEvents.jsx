@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PresEventCard } from "./PresEventCard";
 import axios from "axios";
 import { SectionLoader } from "../../../components/SectionLoader";
