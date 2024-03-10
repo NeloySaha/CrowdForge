@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -13,8 +13,8 @@ export const Login = ({ setLoggedUser, failedToast, successToast }) => {
   const [loginDisabled, setLoginDisabled] = useState(true);
   const [loginInfo, setLoginInfo] = useState({
     clubName: "",
-    email: "",
-    password: "",
+    email: "president@gmail.com",
+    password: "president123",
   });
   const navigate = useNavigate();
   const handleLoginInfo = (e) => {

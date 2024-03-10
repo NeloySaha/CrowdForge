@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { PropagateLoader } from "react-spinners";
 import axios from "axios";
 import { ScaleLoader } from "react-spinners";
 import {
@@ -11,6 +10,17 @@ import {
 } from "react-icons/io5";
 import { LineLoader } from "./LineLoader";
 
+function formatDate(dob) {
+  const date = new Date(dob);
+  const formattedDate = `${date.getFullYear()}-${
+    date.getMonth() + 1 > 9
+      ? `${date.getMonth() + 1}`
+      : `0${date.getMonth() + 1}`
+  }-${date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`}`;
+
+  return formattedDate;
+}
+
 export const EditUserInfo = ({
   failedToast,
   successToast,
@@ -18,13 +28,13 @@ export const EditUserInfo = ({
   setLoggedUser,
 }) => {
   const [editInfo, setEditInfo] = useState({
-    name: "",
-    gender: "",
-    department: "",
-    contact_no: "",
+    name: loggedUser.name,
+    gender: loggedUser.gender,
+    department: loggedUser.department,
+    contact_no: loggedUser.contact_no,
     oldPass: "",
     password: "",
-    dob: "",
+    dob: formatDate(loggedUser.dob),
     email: loggedUser.email,
     club: loggedUser.club,
   });
@@ -55,7 +65,6 @@ export const EditUserInfo = ({
       ));
 
       setDeptDataHtml(deptOptions);
-      setEditInfo((prev) => ({ ...prev, department: res.data[0].name }));
     } catch (err) {
       console.log(err);
     } finally {
