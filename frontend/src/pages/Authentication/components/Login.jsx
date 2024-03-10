@@ -12,7 +12,7 @@ export const Login = ({ setLoggedUser, failedToast, successToast }) => {
   const [clubDataHtml, setClubDataHtml] = useState([]);
   const [loginDisabled, setLoginDisabled] = useState(true);
   const [loginInfo, setLoginInfo] = useState({
-    clubName: "",
+    clubName: "BUCC",
     email: "president@gmail.com",
     password: "president123",
   });
@@ -33,7 +33,7 @@ export const Login = ({ setLoggedUser, failedToast, successToast }) => {
 
       setClubDataHtml(clubOptions);
 
-      setLoginInfo((prev) => ({ ...prev, clubName: res.data[0].name }));
+      // setLoginInfo((prev) => ({ ...prev, clubName: res.data[0].name }));
     } catch (err) {
       console.log(err);
     } finally {
